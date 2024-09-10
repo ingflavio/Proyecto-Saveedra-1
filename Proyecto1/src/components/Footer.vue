@@ -9,6 +9,8 @@
 
 <style>
 .footer{
+    background-color: #b3c4cc;
+    color: black;
     --bulma-footer-padding: 20px !important;
 }
 </style>
