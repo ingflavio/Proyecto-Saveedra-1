@@ -1,1 +1,16 @@
-<template>  <h1>hola mundo </h1></template>
+<script setup>
+import Navbar from './components/Navbar.vue';
+import Footer from './components/Footer.vue';
+import Index from './views/Index.vue';
+
+</script>
+
+<template>
+<Navbar/>
+<Index/>
+<Footer/>
+</template>
+
+<style>
+
+</style>
