@@ -1,22 +1,3 @@
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const $navbarBurgers = Array.prototype.slice.call(
-    document.querySelectorAll(".navbar-burger"),
-    0
-  );
-
-  $navbarBurgers.forEach((el) => {
-    el.addEventListener("click", () => {
-      const target = el.dataset.target;
-      const $target = document.getElementById(target);
-
-      el.classList.toggle("is-active");
-      $target.classList.toggle("is-active");
-    });
-  });
-});
-</script>
-
 <template>
   <nav class="navbar is-transparent">
     <div class="navbar-brand">
@@ -33,21 +14,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     <div id="navbarExampleTransparentExample" class="navbar-menu">
       <div class="navbar-start">
-        <a class="navbar-item" href="#"> Inicio </a>
-        <a class="navbar-item" href="#"> Galería </a>
+        <router-link class="navbar-item" to="/"> Inicio </router-link>
+        <router-link class="navbar-item" to="#"> Galería </router-link>
       </div>
       <div class="navbar-end">
         <div class="navbar-item">
           <div class="field is-grouped">
             <p class="control">
-              <a class="button buttonNav" href="#">
+              <router-link class="button buttonNav" to="#">
                 <span>Iniciar Sesión</span>
-              </a>
+              </router-link>
             </p>
             <p class="control">
-              <a class="button buttonNav" href="#">
+              <router-link class="button buttonNav" to="/register">
                 <span>Registrarte</span>
-              </a>
+              </router-link>
             </p>
           </div>
         </div>
@@ -55,6 +36,14 @@ document.addEventListener("DOMContentLoaded", () => {
     </div>
   </nav>
 </template>
+
+<script setup>
+import { defineProps } from 'vue';
+
+const props = defineProps({
+  isActive: Boolean,
+});
+</script>
 
 <style>
 .navbar {
