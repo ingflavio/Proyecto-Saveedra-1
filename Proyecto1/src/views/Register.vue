@@ -13,8 +13,6 @@
                   <input class="input" type="text" v-model="username" required />
                 </div>
               </div>
-          
-
               <div class="field">
                 <label class="label">Correo Electrónico</label>
                 <div class="control">
@@ -92,7 +90,7 @@ const register = () => {
   padding: 20px;
   position: relative;
   z-index: 1;
-  background-color:  #919da3; /* Fondo blanco semitransparente para que el banner sea visible */
+  background-color:  #919da3;
 }
 
 .title {
@@ -100,7 +98,7 @@ const register = () => {
 }
 
 .footer{
-  padding: 1px !important; /* Reduce el padding del footer */
+  padding: 1px !important; 
   background-color: #b3c4cc;
   color: black;
 }
