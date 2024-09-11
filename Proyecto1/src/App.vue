@@ -9,7 +9,6 @@ import Index from './views/Index.vue';
 <template>
 <Navbar/>
 <router-view />
-<Index/>
 <Footer/>
 </template>
 
