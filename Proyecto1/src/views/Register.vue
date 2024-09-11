@@ -1,70 +1,76 @@
 <template>
   <div class="containerContent is-relative">
-  <section class="section register-section">
-    <div class="container">
-      <div class="columns is-centered">
-        <div class="column is-half">
-          <div class="box">
-            <h1 class="title has-text-centered">Registro</h1>
-            <form @submit.prevent="register">
-              <div class="field">
-                <label class="label">Nombre de Usuario</label>
-                <div class="control">
-                  <input class="input" type="text" v-model="username" required />
-                </div>
-              </div>
-          
-
-              <div class="field">
-                <label class="label">Correo Electrónico</label>
-                <div class="control">
-                  <input class="input" type="email" v-model="email" required />
-                </div>
-              </div>
-
-              <div class="field">
-                <label class="label">Contraseña</label>
-                <div class="control">
-                  <input class="input" type="password" v-model="password" required />
-                </div>
-              </div>
-
-              <div class="field">
-                <label class="label">Repetir Contraseña</label>
-                <div class="control">
-                  <input class="input" type="password" v-model="confirmPassword" required />
-                </div>
-              </div>
-
-              <div class="field is-grouped is-grouped-centered">
-                <div class="control">
-                  <button class="button is-link" type="submit">Registrarse</button>
-                </div>
-              </div>
-            </form>
+    <section class="section register-section">
+      <div class="box">
+        <h1 class="title has-text-centered">Registro</h1>
+        <form @submit.prevent="register">
+          <div class="field">
+            <label class="label">Nombre de Usuario</label>
+            <div class="control">
+              <input class="input" type="text" v-model="username" required />
+            </div>
           </div>
-        </div>
+
+          <div class="field">
+            <label class="label">Correo Electrónico</label>
+            <div class="control">
+              <input class="input" type="email" v-model="email" required />
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Contraseña</label>
+            <div class="control">
+              <input
+                class="input"
+                type="password"
+                v-model="password"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Repetir Contraseña</label>
+            <div class="control">
+              <input
+                class="input"
+                type="password"
+                v-model="confirmPassword"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="field is-grouped is-grouped-centered">
+            <div class="control">
+              <button class="button is-link" type="submit">Registrarse</button>
+            </div>
+          </div>
+        </form>
       </div>
-    </div>
-  </section>
-</div>
+    </section>
+  </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref } from "vue";
 
-const username = ref('');
-const email = ref('');
-const password = ref('');
-const confirmPassword = ref('');
+const username = ref("");
+const email = ref("");
+const password = ref("");
+const confirmPassword = ref("");
 
 const register = () => {
   if (password.value !== confirmPassword.value) {
-    alert('Las contraseñas no coinciden');
+    alert("Las contraseñas no coinciden");
     return;
   }
   // Aquí puedes agregar la lógica para manejar el registro
-  console.log('Usuario registrado:', { username: username.value, email: email.value });
+  console.log("Usuario registrado:", {
+    username: username.value,
+    email: email.value,
+  });
 };
 </script>
 
@@ -83,23 +89,23 @@ const register = () => {
   background-size: cover;
   background-position: center;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .box {
-  padding: 20px;
-  position: relative;
-  z-index: 1;
-  background-color:  #919da3; /* Fondo blanco semitransparente para que el banner sea visible */
+  background-color:
+   #919da3;
+   max-width: 600px; 
+   width: 100%;
 }
 
 .title {
   margin-bottom: 20px;
 }
 
-.footer{
+.footer {
   padding: 1px !important; /* Reduce el padding del footer */
   background-color: #b3c4cc;
   color: black;
