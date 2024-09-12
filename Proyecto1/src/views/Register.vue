@@ -41,12 +41,27 @@
                   </div>
                 </div>
               </form>
-              <p v-if="message" :class="messageClass">{{ message }}</p>
             </div>
           </div>
         </div>
       </div>
     </section>
+
+    <!-- Modal -->
+    <div class="modal" :class="{ 'is-active': isModalActive }">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <div class="box">
+        
+          <p class="title has-text-centered">{{ message }}</p>
+          <div class="botonModal">
+          <button class="button is-success" @click="closeModal">Aceptar</button>
+          </div>
+        
+        </div>
+      </div>
+      <button class="modal-close is-large" aria-label="close" @click="closeModal"></button>
+    </div>
   </div>
 </template>
 
@@ -60,13 +75,13 @@ const email = ref('');
 const password = ref('');
 const confirmPassword = ref('');
 const message = ref('');
-const messageClass = ref('');
+const isModalActive = ref(false);
 const router = useRouter();
 
 const register = async () => {
   if (password.value !== confirmPassword.value) {
     message.value = 'Las contraseñas no coinciden';
-    messageClass.value = 'error-message';
+    isModalActive.value = true;
     return;
   }
 
@@ -77,14 +92,18 @@ const register = async () => {
       password: password.value,
     });
     message.value = response.data;
-    messageClass.value = 'success-message';
-    setTimeout(() => {
-      router.push('/login');
-    }, 2000); // Redirige después de 2 segundos
+    isModalActive.value = true;
   } catch (error) {
     message.value = 'Error en el registro';
-    messageClass.value = 'error-message';
+    isModalActive.value = true;
     console.error('Error al registrar el usuario:', error);
+  }
+};
+
+const closeModal = () => {
+  isModalActive.value = false;
+  if (message.value === 'Registrado con éxito') {
+    router.push('/login');
   }
 };
 </script>
@@ -122,18 +141,26 @@ const register = async () => {
   background-color: #b3c4cc;
   color: black;
 }
-.success-message {
-  color: green;
-  font-size: 1.5em;
-  font-weight: bold;
-  margin-top: 20px;
-  text-align: center;
+.modal-content {
+  max-width: 500px;
+  margin: auto;
+  
 }
-.error-message {
-  color:white;
-  font-size: 1.5em;
-  font-weight: bold;
-  margin-top: 20px;
-  text-align: center;
+
+.botonModal{
+
+display: flex;
+flex-direction: column;
+justify-content: center;
+max-width: 500px;
+
+
+
+
 }
+
+
+
+
+
 </style>
