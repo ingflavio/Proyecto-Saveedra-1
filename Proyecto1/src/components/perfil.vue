@@ -288,7 +288,7 @@ const reverseGeocode = async (lat, lng) => {
     profile.value.street = address.road || '';
     profile.value.description = `${profile.value.city}, ${profile.value.country}`;
 
-    // Obtener la zona horaria
+
     const timezoneResponse = await axios.get(`http://worldtimeapi.org/api/ip`);
     profile.value.offset = timezoneResponse.data.utc_offset;
   } catch (error) {
