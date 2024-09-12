@@ -20,14 +20,19 @@
       <div class="navbar-end">
         <div class="navbar-item">
           <div class="field is-grouped">
-            <p class="control">
+            <p class="control" v-if="!isAuthenticated">
               <router-link class="button buttonNav" to="/Login">
                 <span>Iniciar Sesión</span>
               </router-link>
             </p>
-            <p class="control">
+            <p class="control" v-if="!isAuthenticated">
               <router-link class="button buttonNav" to="/register">
                 <span>Registrarte</span>
+              </router-link>
+            </p>
+            <p class="control" v-if="isAuthenticated">
+              <router-link class="button buttonNav" to="/perfil">
+                <span>Perfil</span>
               </router-link>
             </p>
           </div>
@@ -38,10 +43,15 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue';
+import { ref, onMounted } from 'vue';
 
-const props = defineProps({
-  isActive: Boolean,
+const isAuthenticated = ref(false);
+
+onMounted(() => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    isAuthenticated.value = true;
+  }
 });
 </script>
 
@@ -59,14 +69,15 @@ const props = defineProps({
 .navbar-item {
   color: black !important;
 }
-.buttonNav{
-    background-color: #b3c4cc;
-    color: black;
-    --bulma-button-border-style: none;
+
+.buttonNav {
+  background-color: #b3c4cc;
+  color: black;
+  --bulma-button-border-style: none;
 }
 
-.buttonNav:hover{
-    background-color: #919da3;
+.buttonNav:hover {
+  background-color: #919da3;
 }
 
 strong {

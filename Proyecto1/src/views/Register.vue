@@ -1,68 +1,72 @@
 <template>
   <div class="containerContent is-relative">
-  <section class="section register-section">
-    <div class="container">
-      <div class="columns is-centered">
-        <div class="column is-half">
-          <div class="box">
-            <h1 class="title has-text-centered">Registro</h1>
-            <form @submit.prevent="register">
-              <div class="field">
-                <label class="label">Nombre de Usuario</label>
-                <div class="control">
-                  <input class="input" type="text" v-model="username" required />
+    <section class="section register-section">
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="column is-half">
+            <div class="box">
+              <h1 class="title has-text-centered">Registro</h1>
+              <form @submit.prevent="register">
+                <div class="field">
+                  <label class="label">Nombre de Usuario</label>
+                  <div class="control">
+                    <input class="input" type="text" v-model="username" required />
+                  </div>
                 </div>
-              </div>
 
-
-              <div class="field">
-                <label class="label">Correo Electrónico</label>
-                <div class="control">
-                  <input class="input" type="email" v-model="email" required />
+                <div class="field">
+                  <label class="label">Correo Electrónico</label>
+                  <div class="control">
+                    <input class="input" type="email" v-model="email" required />
+                  </div>
                 </div>
-              </div>
 
-              <div class="field">
-                <label class="label">Contraseña</label>
-                <div class="control">
-                  <input class="input" type="password" v-model="password" required />
+                <div class="field">
+                  <label class="label">Contraseña</label>
+                  <div class="control">
+                    <input class="input" type="password" v-model="password" required />
+                  </div>
                 </div>
-              </div>
 
-              <div class="field">
-                <label class="label">Repetir Contraseña</label>
-                <div class="control">
-                  <input class="input" type="password" v-model="confirmPassword" required />
+                <div class="field">
+                  <label class="label">Repetir Contraseña</label>
+                  <div class="control">
+                    <input class="input" type="password" v-model="confirmPassword" required />
+                  </div>
                 </div>
-              </div>
 
-              <div class="field is-grouped is-grouped-centered">
-                <div class="control">
-                  <button class="button is-link" type="submit">Registrarse</button>
+                <div class="field is-grouped is-grouped-centered">
+                  <div class="control">
+                    <button class="button is-link" type="submit">Registrarse</button>
+                  </div>
                 </div>
-              </div>
-            </form>
+              </form>
+              <p v-if="message" :class="messageClass">{{ message }}</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-
-  </section>
-</div>
+    </section>
+  </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
 import axios from 'axios';
+import { useRouter } from 'vue-router';
 
 const username = ref('');
 const email = ref('');
 const password = ref('');
 const confirmPassword = ref('');
+const message = ref('');
+const messageClass = ref('');
+const router = useRouter();
 
 const register = async () => {
   if (password.value !== confirmPassword.value) {
-    alert('Las contraseñas no coinciden');
+    message.value = 'Las contraseñas no coinciden';
+    messageClass.value = 'error-message';
     return;
   }
 
@@ -72,11 +76,15 @@ const register = async () => {
       correo: email.value,
       password: password.value,
     });
-    console.log('Usuario registrado:', response.data,email.value);
-    // Aquí puedes redirigir al usuario o mostrar un mensaje de éxito
+    message.value = response.data;
+    messageClass.value = 'success-message';
+    setTimeout(() => {
+      router.push('/login');
+    }, 2000); // Redirige después de 2 segundos
   } catch (error) {
+    message.value = 'Error en el registro';
+    messageClass.value = 'error-message';
     console.error('Error al registrar el usuario:', error);
-    // Aquí puedes manejar el error, por ejemplo, mostrando un mensaje al usuario
   }
 };
 </script>
@@ -109,9 +117,23 @@ const register = async () => {
 .title {
   margin-bottom: 20px;
 }
-.footer{
+.footer {
   padding: 1px !important; /* Reduce el padding del footer */
   background-color: #b3c4cc;
   color: black;
+}
+.success-message {
+  color: green;
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-top: 20px;
+  text-align: center;
+}
+.error-message {
+  color:white;
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-top: 20px;
+  text-align: center;
 }
 </style>

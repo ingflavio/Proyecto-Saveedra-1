@@ -50,10 +50,9 @@
     });
     console.log('Usuario autenticado:', response.data);
     localStorage.setItem('token', response.data.token);
-    // Redirigir al usuario o mostrar un mensaje de éxito
   } catch (error) {
     console.error('Error al autenticar el usuario:', error);
-    // Manejar el error
+
   }
 };
   </script>
