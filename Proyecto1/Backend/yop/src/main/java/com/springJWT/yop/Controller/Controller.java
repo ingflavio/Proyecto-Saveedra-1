@@ -26,7 +26,7 @@ public class Controller {
     private ServiceUsuarioImpl usuarioimpl;
     @PostMapping("/Login")
     public ResponseEntity<?> login(@RequestBody AuthLoginRequest userLoginRequest){
-
+        System.out.println("xzczxc0"+userLoginRequest.getUsername());
         return new ResponseEntity<>(usuarioimpl.Login(userLoginRequest), HttpStatus.OK);
 
     }

@@ -80,7 +80,7 @@ const register = async () => {
     messageClass.value = 'success-message';
     setTimeout(() => {
       router.push('/login');
-    }, 2000); // Redirige después de 2 segundos
+    }, 1250); // Redirige después de 2 segundos
   } catch (error) {
     message.value = 'Error en el registro';
     messageClass.value = 'error-message';
