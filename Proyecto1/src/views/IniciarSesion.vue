@@ -1,55 +1,61 @@
 <template>
     <div class="containerContent is-relative">
-    <section class="section register-section">
-      <div class="container">
-        <div class="columns is-centered">
-          <div class="column is-half">
-            <div class="box">
-              <h1 class="title has-text-centered">Iniciar Sesion</h1>
-              <form @submit.prevent="register">
-                <div class="field">
-                  <label class="label">Nombre de Usuario</label>
-                  <div class="control">
-                    <input class="input" type="text" v-model="username" required />
+      <section class="section register-section">
+        <div class="container">
+          <div class="columns is-centered">
+            <div class="column is-half">
+              <div class="box">
+                <h1 class="title has-text-centered">Iniciar Sesión</h1>
+                <form @submit.prevent="login">
+                  <div class="field">
+                    <label class="label">Nombre de Usuario</label>
+                    <div class="control">
+                      <input class="input" type="text" v-model="username" required />
+                    </div>
                   </div>
-                </div>
-
-                <div class="field">
-                  <label class="label">Repetir Contraseña</label>
-                  <div class="control">
-                    <input class="input" type="password" v-model="confirmPassword" required />
-                  </div>
-                </div>
   
-                <div class="field is-grouped is-grouped-centered">
-                  <div class="control">
-                    <button class="button is-link" type="submit">Enviar</button>
+                  <div class="field">
+                    <label class="label">Contraseña</label>
+                    <div class="control">
+                      <input class="input" type="password" v-model="password" required />
+                    </div>
                   </div>
-                </div>
-              </form>
+  
+                  <div class="field is-grouped is-grouped-centered">
+                    <div class="control">
+                      <button class="button is-link" type="submit">Enviar</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-  
-    </section>
-  </div>
+      </section>
+    </div>
   </template>
   
   <script setup>
   import { ref } from 'vue';
+  import axios from 'axios';
+  
   const username = ref('');
-  const email = ref('');
   const password = ref('');
-  const confirmPassword = ref('');
-  const register = () => {
-    if (password.value !== confirmPassword.value) {
-      alert('Las contraseñas no coinciden');
-      return;
-    }
-
-    console.log('Usuario registrado:', { username: username.value, email: email.value });
-  };
+  
+  const login = async () => {
+  try {
+    const response = await axios.post('http://localhost:8080/api/Login', {
+      username: username.value,
+      password: password.value,
+    });
+    console.log('Usuario autenticado:', response.data);
+    localStorage.setItem('token', response.data.token);
+    // Redirigir al usuario o mostrar un mensaje de éxito
+  } catch (error) {
+    console.error('Error al autenticar el usuario:', error);
+    // Manejar el error
+  }
+};
   </script>
   
   <style scoped>
@@ -80,9 +86,10 @@
   .title {
     margin-bottom: 20px;
   }
-  .footer{
+  .footer {
     padding: 1px !important; /* Reduce el padding del footer */
     background-color: #b3c4cc;
     color: black;
   }
   </style>
+  
