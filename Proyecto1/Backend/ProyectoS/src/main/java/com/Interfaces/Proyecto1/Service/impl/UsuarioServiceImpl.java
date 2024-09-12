@@ -33,6 +33,7 @@ public class UsuarioServiceImpl implements UsuarioService, UserDetailsService {
     @Override
     public String Register(Usuario usuario) {
        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+        System.out.println(usuario.getCorreo());
         usuarioRepository.save(usuario);
         return "Usuario Registrado Con Exito";
     }

@@ -21,7 +21,7 @@
         <div class="navbar-item">
           <div class="field is-grouped">
             <p class="control">
-              <router-link class="button buttonNav" to="#">
+              <router-link class="button buttonNav" to="/Login">
                 <span>Iniciar Sesión</span>
               </router-link>
             </p>

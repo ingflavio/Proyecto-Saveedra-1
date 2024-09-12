@@ -17,6 +17,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("api")
+@CrossOrigin(origins = "http://localhost:5173")
 public class UsuarioController {
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -27,7 +28,6 @@ public class UsuarioController {
     @PostMapping("/Register")
     public ResponseEntity<?> register(@RequestBody UsuarioDto usuarioDto){
         Optional<Usuario>usuario1 =usuarioRepository.findByUsername(usuarioDto.getUsername());
-        System.out.println(usuarioDto.getPassword());
         if(usuario1.isEmpty()){
             return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.Register(Usuario.builder()
                     .username(usuarioDto.getUsername())
