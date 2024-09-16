@@ -28,14 +28,13 @@ public class Usuario {
         private String correo;
         @Convert(converter = PermisosConverter.class)
         Set<Permisos> permisos;
-
         private String phone;
         private String cell;
+        private String Cedula;
         private String gender;
         private String firstName;
         private String lastName;
         private int number;
-        private String name;
         private String city;
         private String state;
         private String country;
@@ -46,8 +45,9 @@ public class Usuario {
         private String description;
         private Date date;
         private int ageUser;
-        private Date dateRegister;
+        private String dateRegister;
         private int ageRegister;
+        private byte[] Foto;
 
 
     }

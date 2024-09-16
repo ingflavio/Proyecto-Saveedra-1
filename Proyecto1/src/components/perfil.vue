@@ -46,7 +46,7 @@
                 </div>
 
                 <div class="field">
-                  <label class="label">Teléfono</label>
+                  <label class="label">Telefono Celular</label>
                   <div class="control is-flex">
                     <div class="select">
                       <select v-model="profile.phonePrefix">
@@ -60,24 +60,58 @@
                     <input
                       class="input"
                       type="text"
-                      placeholder="Resto del numero"
+                      placeholder="Resto del número"
                       v-model="profile.phoneNumber"
+                      @input="limitPhoneNumber"
                       style="margin-left: 10px"
                     />
                   </div>
                 </div>
 
+
                 <div class="field">
-                  <label class="label">Celular</label>
-                  <div class="control">
+                  <label class="label">Telefono Fijo</label>
+                  <div class="control is-flex">
+                    <div class="select">
+                      <select v-model="profile.phonePrefixFijo">
+                        <option value="0212">0212</option>
+                        <option value="0241">0241</option>
+                        <option value="0243">0243</option>
+                        <option value="0261">0261</option>
+                        <option value="0281">0281</option>
+                        <option value="0283">0283</option>
+                        <option value="0284">0284</option>
+                        <option value="0285">0285</option>
+                        <option value="0286">0286</option>
+                        <option value="0287">0287</option>
+                        <option value="0288">0288</option>
+                        <option value="0289">0289</option>
+                        <option value="0291">0291</option>
+                        <option value="0293">0293</option>   
+
+                        <option value="0294">0294</option>
+                        <option value="0295">0295</option>
+                        <option value="0296">0296</option>
+                        <option value="0297">0297</option>
+                        <option value="0412">0412</option>
+                        <option value="0414">0414</option>
+                        <option value="0416">0416</option>
+                        <option value="0424">0424</option>
+                        <option value="0426">0426</option>
+                        </select>   
+
+                    </div>
                     <input
                       class="input"
                       type="text"
-                      v-model="profile.cell"
-                      @input="validateNumber('cell')"
+                      placeholder="Resto del número"
+                      v-model="profile.number"
+                      @input="limitPhoneNumberFijo"
+                      style="margin-left: 10px"
                     />
                   </div>
                 </div>
+
 
                 <div class="field">
                   <label class="label">Nombre</label>
@@ -102,21 +136,14 @@
                 </div>
 
                 <div class="field">
-                  <label class="label">Número</label>
+                  <label class="label">Número De Cedula</label>
                   <div class="control">
                     <input
                       class="input"
                       type="text"
-                      v-model="profile.number"
+                      v-model="profile.cedula"
                       @input="validateNumber('number')"
                     />
-                  </div>
-                </div>
-
-                <div class="field">
-                  <label class="label">Nombre Completo</label>
-                  <div class="control">
-                    <input class="input" type="text" v-model="profile.name" />
                   </div>
                 </div>
 
@@ -226,7 +253,7 @@
                       class="input"
                       type="text"
                       v-model="profile.ageUser"
-                      @input="validateNumber('ageUser')"
+                      readonly
                     />
                   </div>
                 </div>
@@ -242,20 +269,23 @@
                       @input="validateDate('dateRegister')"
                     />
                   </div>
+                  
                 </div>
-
                 <div class="field">
-                  <label class="label">Edad al Registrar</label>
+                  <label class="label">Foto de Perfil</label>
                   <div class="control">
                     <input
                       class="input"
-                      type="text"
-                      v-model="profile.ageRegister"
-                      @input="validateNumber('ageRegister')"
+                      type="file"
+                      @change="handleFileUpload"
                     />
+                  </div>
+                  <div v-if="profile.profilePicture" class="preview">
+                    <img :src="profile.profilePicture" alt="Vista previa de la foto" />
                   </div>
                 </div>
 
+   
                 <div class="field is-grouped is-grouped-centered">
                   <div class="control">
                     <button class="button is-link" type="submit">
@@ -274,21 +304,97 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted ,onBeforeUnmount} from "vue";
 import axios from "axios";
 import L from "leaflet";
 
+
+const actionTimes = ref({
+  keypress: 0.2, // tiempo en segundos
+  point: 1.1,
+  handMove: 0.4,
+  think: 1.2,
+  mouseClick: 0.1,
+  datePicker: 6.81,
+  scroll: 3.96,
+  draw: 1.2,
+  systemResponse: 0, // Este será añadido dinámicamente
+});
+
+const actionLog = ref([]); // Para registrar las acciones
+const startTime = ref(null); // Para registrar el tiempo de inicio
+
+// Función para registrar una acción
+const logAction = (actionType) => {
+  const timestamp = new Date().getTime();
+  actionLog.value.push({ actionType, timestamp });
+};
+
+// Función para calcular el tiempo total
+const calculateTotalTime = () => {
+  if (actionLog.value.length === 0 || !startTime.value) return 0;
+
+  let totalTime = 0;
+  for (let i = 0; i < actionLog.value.length - 1; i++) {
+    const action = actionLog.value[i];
+    const nextAction = actionLog.value[i + 1];
+    const duration = (nextAction.timestamp - action.timestamp) / 1000; // Tiempo en segundos
+
+    totalTime += actionTimes.value[action.actionType] || 0;
+  }
+
+  // Agregar el tiempo del último evento hasta el final del formulario
+  if (actionLog.value.length > 0) {
+    const lastAction = actionLog.value[actionLog.value.length - 1];
+    const now = new Date().getTime();
+    const duration = (now - lastAction.timestamp) / 1000; // Tiempo en segundos
+
+    totalTime += actionTimes.value[lastAction.actionType] || 0;
+  }
+
+  // Agregar el tiempo desde el inicio del formulario hasta el final
+  if (startTime.value) {
+    const now = new Date().getTime();
+    totalTime += (now - startTime.value) / 1000; // Tiempo en segundos
+  }
+
+  return totalTime;
+};
+
+// Event listeners para capturar las acciones
+onMounted(() => {
+  startTime.value = new Date().getTime(); // Registrar el tiempo de inicio
+  document.addEventListener('click', onMouseClick);
+  // Puedes agregar más listeners para otros tipos de acciones
+});
+
+onBeforeUnmount(() => {
+  document.removeEventListener('click', onMouseClick);
+  // Elimina otros listeners aquí
+});
+
+// Ejemplo de cómo puedes registrar el tiempo de clic del ratón
+const onMouseClick = () => {
+  logAction('mouseClick');
+};
+
+
+
+
+
 const profile = ref({
+  
   username: "",
   correo: "",
-  permisos: new Set(),
-  phone: "",
-  cell: "",
+  phonePrefixFijo: "0241",
+  phonePrefix: "0414",
+  phoneNumber: "",  // Número sin prefijo
+  number: "",
+
+  cedula: "",
   gender: "",
   firstName: "",
   lastName: "",
-  number: "",
-  name: "",
   city: "",
   state: "",
   country: "",
@@ -300,11 +406,31 @@ const profile = ref({
   date: "",
   ageUser: "",
   dateRegister: "",
-  ageRegister: "",
+  profilePicture: ""
 });
+
 const message = ref("");
 const messageClass = ref("");
 const map = ref(null);
+
+const limitPhoneNumber = (event) => {
+  const value = event.target.value;
+  if (value.length > 7) {
+    profile.value.phoneNumber = value.slice(0, 7);
+  } else {
+    profile.value.phoneNumber = value;
+  }
+};
+
+const limitPhoneNumberFijo = (event) => {
+  const value = event.target.value;
+  if (value.length > 7) {
+    profile.value.number = value.slice(0, 7);
+  } else {
+    profile.value.number = value;
+  }
+};
+
 
 const getProfile = async () => {
   try {
@@ -318,6 +444,7 @@ const getProfile = async () => {
       },
     });
     profile.value = response.data;
+    profile.value.dateRegister = response.data.usuarioRegistro; // Asigna el valor aquí
     if (map.value) {
       const { latitude, longitude } = profile.value;
       map.value.setView([latitude, longitude], 13);
@@ -332,18 +459,40 @@ const getProfile = async () => {
 };
 
 const updateProfile = async () => {
+  const estimatedTime = calculateTotalTime();
+  console.log('Tiempo estimado para completar el formulario:', estimatedTime, 'segundos');
+
   try {
     const token = localStorage.getItem("token");
+    const formData = new FormData();
+
+    // Concatenate phone prefix and number
+    profile.value.phone = `${profile.value.phonePrefix}${profile.value.phoneNumber}`;
+    profile.value.number = `${profile.value.phonePrefixFijo}${profile.value.number}`;
+
+    for (const key in profile.value) {
+      if (profile.value[key] instanceof Set) {
+        formData.append(key, JSON.stringify([...profile.value[key]]));
+      } else {
+        formData.append(key, profile.value[key]);
+      }
+    }
+    if (profile.value.profilePicture) {
+      formData.append("profilePicture", profile.value.profilePicture);
+    }
     const response = await axios.put(
       "http://localhost:8080/api/Perfil",
-      profile.value,
+      formData,
       {
         headers: {
           Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
         },
       }
     );
-    message.value = "Perfil actualizado correctamente";
+
+    // Mostrar el tiempo estimado en el mensaje de éxito
+    message.value = `Perfil actualizado correctamente. Tiempo estimado para completar el formulario: ${estimatedTime.toFixed(2)} segundos.`;
     messageClass.value = "success-message";
   } catch (error) {
     console.error("Error al actualizar el perfil:", error);
@@ -351,6 +500,17 @@ const updateProfile = async () => {
       "Error al actualizar el perfil. Por favor, inténtalo de nuevo.";
     messageClass.value = "error-message";
   }
+};
+
+const validatePhoneNumber = () => {
+  if (profile.value.phoneNumber.length !== 7) {
+    message.value = "El número de teléfono debe tener exactamente 7 caracteres.";
+    messageClass.value = "error-message";
+    return false; // Indica que la validación ha fallado
+  }
+  message.value = ""; // Limpia el mensaje de error si la validación es exitosa
+  messageClass.value = "";
+  return true; // Indica que la validación ha pasado
 };
 
 const validateNumber = (field) => {
@@ -365,6 +525,45 @@ const validateDate = (field) => {
   } else {
     message.value = "";
     messageClass.value = "";
+    if (field === 'date') {
+      profile.value.ageUser = calculateAge(profile.value[field]);
+    }
+  }
+};
+
+const calculateAge = (birthDate) => {
+  const today = new Date();
+  const birthDateParts = birthDate.split('/');
+  const birthDay = parseInt(birthDateParts[0], 10);
+  const birthMonth = parseInt(birthDateParts[1], 10) - 1; // Los meses en JavaScript son 0-11
+  const birthYear = parseInt(birthDateParts[2], 10);
+
+  const birthDateObj = new Date(birthYear, birthMonth, birthDay);
+  let age = today.getFullYear() - birthDateObj.getFullYear();
+  const monthDifference = today.getMonth() - birthDateObj.getMonth();
+
+  if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDateObj.getDate())) {
+    age--;
+  }
+
+  return age;
+};
+
+const handleFileUpload = (event) => {
+  const file = event.target.files[0];
+  const validExtensions = ['image/jpeg', 'image/png', 'image/jpg'];
+
+  if (file && validExtensions.includes(file.type)) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      profile.value.profilePicture = e.target.result;
+    };
+    reader.readAsDataURL(file);
+    message.value = "";
+    messageClass.value = "";
+  } else {
+    message.value = "Formato de archivo no válido. Solo se permiten archivos .jpg, .jpeg, y .png.";
+    messageClass.value = "error-message";
   }
 };
 
@@ -411,9 +610,8 @@ onMounted(() => {
 
   getProfile();
 });
-
-
 </script>
+
 
 <style scoped>
 .register-section {
@@ -471,5 +669,17 @@ onMounted(() => {
 
 .radio {
   color: white;
+}
+
+
+.preview img {
+  
+
+  max-width: 150px; /* Ancho máximo */
+  max-height: 150px; /* Alto máximo */
+  width: auto;
+  height: auto;
+  margin-top: 10px;
+
 }
 </style>

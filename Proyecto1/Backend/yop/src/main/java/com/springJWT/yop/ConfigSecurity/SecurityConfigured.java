@@ -49,6 +49,7 @@ public class SecurityConfigured {
                     http.requestMatchers(HttpMethod.POST,"/api/Login").permitAll();
                     http.requestMatchers(HttpMethod.POST,"/api/Register").permitAll();
                     http.requestMatchers(HttpMethod.GET, "/api/Perfil").authenticated();
+                    http.requestMatchers(HttpMethod.PUT,"api/Perfil").authenticated();
                     http.anyRequest().denyAll();
 
                 })
