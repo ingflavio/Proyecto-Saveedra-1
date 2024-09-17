@@ -62,7 +62,7 @@
                       type="text"
                       placeholder="Resto del número"
                       v-model="profile.phoneNumber"
-                      @input="limitPhoneNumber"
+                      @input="limitPhoneNumber('phoneNumber')"
                       style="margin-left: 10px"
                     />
                   </div>
@@ -93,11 +93,7 @@
                         <option value="0295">0295</option>
                         <option value="0296">0296</option>
                         <option value="0297">0297</option>
-                        <option value="0412">0412</option>
-                        <option value="0414">0414</option>
-                        <option value="0416">0416</option>
-                        <option value="0424">0424</option>
-                        <option value="0426">0426</option>
+                   
                         </select>   
 
                     </div>
@@ -106,7 +102,7 @@
                       type="text"
                       placeholder="Resto del número"
                       v-model="profile.number"
-                      @input="limitPhoneNumberFijo"
+                      @input="limitPhoneNumber('number')"
                       style="margin-left: 10px"
                     />
                   </div>
@@ -413,13 +409,10 @@ const message = ref("");
 const messageClass = ref("");
 const map = ref(null);
 
-const limitPhoneNumber = (event) => {
-  const value = event.target.value;
-  if (value.length > 7) {
-    profile.value.phoneNumber = value.slice(0, 7);
-  } else {
-    profile.value.phoneNumber = value;
-  }
+const limitPhoneNumber = (field) => {
+  profile.value[field] = profile.value[field].replace(/\D/g, "").slice(0,7);
+
+
 };
 
 const limitPhoneNumberFijo = (event) => {
@@ -515,6 +508,8 @@ const validatePhoneNumber = () => {
 
 const validateNumber = (field) => {
   profile.value[field] = profile.value[field].replace(/\D/g, "");
+
+  
 };
 
 const validateDate = (field) => {
