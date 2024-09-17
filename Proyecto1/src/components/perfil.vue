@@ -14,7 +14,11 @@
                       class="input"
                       type="text"
                       v-model="profile.username"
-                      readonly
+                      @focus="onFieldFocus('username')"
+                      @input="onFieldChange('username')"
+                      @click="onFieldClick('username')"
+                      @keydown="onKeyDown('username')"
+                  
                     />
                   </div>
                 </div>
@@ -26,7 +30,11 @@
                       class="input"
                       type="email"
                       v-model="profile.correo"
-                      readonly
+                      @focus="onFieldFocus('correo')"
+                      @input="onFieldChange('correo')"
+                      @click="onFieldClick('correo')"
+                      @keydown="onKeyDown('username')"
+                  
                     />
                   </div>
                 </div>
@@ -35,11 +43,16 @@
                   <label class="label">Género</label>
                   <div class="control controlgender">
                     <label class="radio">
-                      <input type="radio" v-model="profile.gender" value="M" />
+                      <input type="radio" v-model="profile.gender" value="M"
+                      @click="onFieldClick('gender')" />
+                      
+
                       Masculino
                     </label>
                     <label class="radio ml-5">
-                      <input type="radio" v-model="profile.gender" value="F" />
+                      <input type="radio" v-model="profile.gender" value="F" 
+                      @click="onFieldClick('gender')"
+                      />
                       Femenino
                     </label>
                   </div>
@@ -49,12 +62,16 @@
                   <label class="label">Telefono Celular</label>
                   <div class="control is-flex">
                     <div class="select">
-                      <select v-model="profile.phonePrefix">
+                      <select v-model="profile.phonePrefix"
+                      @focus="onFieldFocus('phoneNumber')" 
+                      @click="onFieldClick('phoneNumber')"
+                      >
                         <option value="0414">0414</option>
                         <option value="0424">0424</option>
                         <option value="0412">0412</option>
                         <option value="0416">0416</option>
                         <option value="0426">0426</option>
+                        
                       </select>
                     </div>
                     <input
@@ -62,7 +79,11 @@
                       type="text"
                       placeholder="Resto del número"
                       v-model="profile.phoneNumber"
-                      @input="limitPhoneNumber('phoneNumber')"
+                
+                      @focus="onFieldFocus('phoneNumber')"
+                      @input="handleNumberInput($event, 'phoneNumber')"
+                      @click="onFieldClick('phoneNumber')"
+                      @keydown="onKeyDown('phoneNumber')"
                       style="margin-left: 10px"
                     />
                   </div>
@@ -73,7 +94,9 @@
                   <label class="label">Telefono Fijo</label>
                   <div class="control is-flex">
                     <div class="select">
-                      <select v-model="profile.phonePrefixFijo">
+                      <select v-model="profile.phonePrefixFijo"
+                      @focus="onFieldFocus('number')" 
+                      @click="onFieldClick('number')">
                         <option value="0212">0212</option>
                         <option value="0241">0241</option>
                         <option value="0243">0243</option>
@@ -88,7 +111,6 @@
                         <option value="0289">0289</option>
                         <option value="0291">0291</option>
                         <option value="0293">0293</option>   
-
                         <option value="0294">0294</option>
                         <option value="0295">0295</option>
                         <option value="0296">0296</option>
@@ -102,7 +124,10 @@
                       type="text"
                       placeholder="Resto del número"
                       v-model="profile.number"
-                      @input="limitPhoneNumber('number')"
+                      @focus="onFieldFocus('number')"
+                      @input="handleNumberInput($event, 'number')"
+                      @click="onFieldClick('number')"
+                      @keydown="onKeyDown('number')"
                       style="margin-left: 10px"
                     />
                   </div>
@@ -116,6 +141,10 @@
                       class="input"
                       type="text"
                       v-model="profile.firstName"
+                      @focus="onFieldFocus('firstName')"
+                      @input="onFieldChange('firstName')"
+                      @click="onFieldClick('firstName')"
+                      @keydown="onKeyDown('firstName')"
                     />
                   </div>
                 </div>
@@ -127,6 +156,10 @@
                       class="input"
                       type="text"
                       v-model="profile.lastName"
+                      @focus="onFieldFocus('lastName')"
+                      @input="onFieldChange('lastName')"
+                      @click="onFieldClick('lastName')"
+                      @keydown="onKeyDown('lastName')"
                     />
                   </div>
                 </div>
@@ -138,7 +171,10 @@
                       class="input"
                       type="text"
                       v-model="profile.cedula"
-                      @input="validateNumber('number')"
+                      @input="handleNumber($event, 'cedula')"
+                      @focus="onFieldFocus('cedula')"
+                      @click="onFieldClick('cedula')"
+                      @keydown="onKeyDown('cedula')"
                     />
                   </div>
                 </div>
@@ -146,21 +182,40 @@
                 <div class="field">
                   <label class="label">Ubicación</label>
                   <div class="control">
-                    <div id="map" style="height: 400px"></div>
+                    <div id="map"
+
+                      @focus="onFieldFocus('ubicacion')"
+                      @input="onFieldChange('ubicacion')"
+                      @click="onFieldClick('ubicacion')"
+                      @keydown="onKeyDown('ubicacion')"
+              
+                     style="height: 400px"></div>
                   </div>
                 </div>
 
                 <div class="field">
                   <label class="label">Ciudad</label>
                   <div class="control">
-                    <input class="input" type="text" v-model="profile.city" />
+                    <input class="input" type="text" v-model="profile.city" 
+                    @focus="onFieldFocus('city')"
+                    @input="onFieldChange('city')"
+                    @click="onFieldClick('city')"
+                    @keydown="onKeyDown('city')"
+                    
+                    
+                    />
                   </div>
                 </div>
 
                 <div class="field">
                   <label class="label">Estado</label>
                   <div class="control">
-                    <input class="input" type="text" v-model="profile.state" />
+                    <input class="input" type="text" v-model="profile.state"
+                    @focus="onFieldFocus('state')"
+                    @input="onFieldChange('state')"
+                    @click="onFieldClick('state')"
+                    @keydown="onKeyDown('state')"
+                    />
                   </div>
                 </div>
 
@@ -171,6 +226,10 @@
                       class="input"
                       type="text"
                       v-model="profile.country"
+                      @focus="onFieldFocus('country')"
+                    @input="onFieldChange('country')"
+                    @click="onFieldClick('country')"
+                    @keydown="onKeyDown('country')"
                     />
                   </div>
                 </div>
@@ -182,7 +241,10 @@
                       class="input"
                       type="text"
                       v-model="profile.postcode"
-                      @input="validateNumber('postcode')"
+                      @input="handleNumber($event, 'postcode')"
+                      @focus="onFieldFocus('postcode')"
+                      @click="onFieldClick('postcode')"
+                      @keydown="onKeyDown('postcode')"
                     />
                   </div>
                 </div>
@@ -194,7 +256,10 @@
                       class="input"
                       type="text"
                       v-model="profile.latitude"
-                      @input="validateNumber('latitude')"
+                      @input="handleNumber($event, 'latitude')"
+                      @focus="onFieldFocus('latitude')"
+                      @click="onFieldClick('latitude')"
+                      @keydown="onKeyDown('latitude')"
                     />
                   </div>
                 </div>
@@ -206,7 +271,10 @@
                       class="input"
                       type="text"
                       v-model="profile.longitude"
-                      @input="validateNumber('longitude')"
+                      @input="handleNumber($event, 'longitude')"
+                      @focus="onFieldFocus('longitude')"
+                      @click="onFieldClick('longitude')"
+                      @keydown="onKeyDown('longitude')"
                     />
                   </div>
                 </div>
@@ -214,7 +282,13 @@
                 <div class="field">
                   <label class="label">Offset</label>
                   <div class="control">
-                    <input class="input" type="text" v-model="profile.offset" />
+                    <input class="input" type="text" v-model="profile.offset" 
+                    @input="handleNumber($event, 'offset')"
+                    @focus="onFieldFocus('offset')"
+                    @click="onFieldClick('offset')"
+                    @keydown="onKeyDown('offset')"
+                    
+                    />
                   </div>
                 </div>
 
@@ -225,6 +299,10 @@
                       class="input"
                       type="text"
                       v-model="profile.description"
+                    @focus="onFieldFocus('description')"
+                    @input="onFieldChange('description')"
+                    @click="onFieldClick('description')"
+                    @keydown="onKeyDown('description')"
                     />
                   </div>
                 </div>
@@ -237,7 +315,11 @@
                       type="text"
                       v-model="profile.date"
                       placeholder="DD/MM/YYYY"
-                      @input="validateDate('date')"
+      
+                      @focus="onFieldFocus('date')"
+                      @input="handleDate($event, 'date')"
+                      @click="onFieldClick('date')"
+                      @keydown="onKeyDown('date')"
                     />
                   </div>
                 </div>
@@ -249,6 +331,10 @@
                       class="input"
                       type="text"
                       v-model="profile.ageUser"
+                      @input="handleNumber($event, 'ageUser')"
+                      @focus="onFieldFocus('ageUser')"
+                      @click="onFieldClick('ageUser')"
+                      @keydown="onKeyDown('ageUser')"
                       readonly
                     />
                   </div>
@@ -262,8 +348,13 @@
                       type="text"
                       v-model="profile.dateRegister"
                       placeholder="DD/MM/YYYY"
-                      @input="validateDate('dateRegister')"
+          
+                      @focus="onFieldFocus('date')"
+                      @input="handleDate($event, 'date')"
+                      @click="onFieldClick('date')"
+                      @keydown="onKeyDown('date')"
                     />
+                
                   </div>
                   
                 </div>
@@ -273,7 +364,11 @@
                     <input
                       class="input"
                       type="file"
+                      accept=".jpg, .jpeg, .png"
                       @change="handleFileUpload"
+                      @focus="onFieldFocus('profilePicture')"
+                      @input="onFieldChange('profilePicture')"
+                      @click="onFieldClick('profilePicture')"
                     />
                   </div>
                   <div v-if="profile.profilePicture" class="preview">
@@ -293,6 +388,35 @@
               <p v-if="message" :class="messageClass">{{ message }}</p>
             </div>
           </div>
+          <div class="column is-half">
+            <div class="box">
+              <h1 class="title has-text-centered">Registro de Acciones</h1>
+              <table class="table is-fullwidth">
+                <thead>
+                  <tr>
+                    <th>Título</th>
+                    <th>K</th>
+                    <th>P</th>
+                    <th>H</th>
+                    <th>M</th>
+                    <th>B</th>
+                    <th>Scrolling</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="action in actionTable" :key="action.operator">
+                    <td>{{ action.title }}</td>
+                    <td>{{ action.K }}</td>
+                    <td>{{ action.P }}</td>
+                    <td>{{ action.H }}</td>
+                    <td>{{ action.M }}</td>
+                    <td>{{ action.B }}</td>
+                    <td>{{ action.Scrolling }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -304,76 +428,164 @@ import { ref, onMounted ,onBeforeUnmount} from "vue";
 import axios from "axios";
 import L from "leaflet";
 
+const lastScrollTime = ref(0); // Variable para el tiempo del último scroll
+const hasSwitchedToKeyboard = ref({});
+const hasThoughtField = ref({});
+const lastSelectedField = ref(null); 
 
-const actionTimes = ref({
-  keypress: 0.2, // tiempo en segundos
-  point: 1.1,
-  handMove: 0.4,
-  think: 1.2,
-  mouseClick: 0.1,
-  datePicker: 6.81,
-  scroll: 3.96,
-  draw: 1.2,
-  systemResponse: 0, // Este será añadido dinámicamente
-});
-
-const actionLog = ref([]); // Para registrar las acciones
-const startTime = ref(null); // Para registrar el tiempo de inicio
-
-// Función para registrar una acción
-const logAction = (actionType) => {
-  const timestamp = new Date().getTime();
-  actionLog.value.push({ actionType, timestamp });
+const onKeyDown = (field) => {
+  if (!hasSwitchedToKeyboard.value[field]) {
+    logAction(field, 'H'); 
+  
+    hasSwitchedToKeyboard.value[field] = true; 
+    hasThoughtField.value[field]=true
+  }
 };
 
-// Función para calcular el tiempo total
-const calculateTotalTime = () => {
-  if (actionLog.value.length === 0 || !startTime.value) return 0;
-
-  let totalTime = 0;
-  for (let i = 0; i < actionLog.value.length - 1; i++) {
-    const action = actionLog.value[i];
-    const nextAction = actionLog.value[i + 1];
-    const duration = (nextAction.timestamp - action.timestamp) / 1000; // Tiempo en segundos
-
-    totalTime += actionTimes.value[action.actionType] || 0;
-  }
-
-  // Agregar el tiempo del último evento hasta el final del formulario
-  if (actionLog.value.length > 0) {
-    const lastAction = actionLog.value[actionLog.value.length - 1];
-    const now = new Date().getTime();
-    const duration = (now - lastAction.timestamp) / 1000; // Tiempo en segundos
-
-    totalTime += actionTimes.value[lastAction.actionType] || 0;
-  }
-
-  // Agregar el tiempo desde el inicio del formulario hasta el final
-  if (startTime.value) {
-    const now = new Date().getTime();
-    totalTime += (now - startTime.value) / 1000; // Tiempo en segundos
-  }
-
-  return totalTime;
+const onFieldClick = (field) => {
+  logAction(field, 'B'); 
+  logAction(field, 'M'); 
+  hasSwitchedToKeyboard.value[field] = false; 
+  hasThoughtField.value[field]=false
+  lastSelectedField.value = field; 
 };
 
-// Event listeners para capturar las acciones
+const onScroll = () => {
+  const now = Date.now();
+  if (now - lastScrollTime.value > 2500) { // 2.5 segundos
+    const field = lastSelectedField.value || 'scroll';
+    logAction(field, 'Scrolling');
+    lastScrollTime.value = now;
+  }
+};
+
 onMounted(() => {
-  startTime.value = new Date().getTime(); // Registrar el tiempo de inicio
+  startTime.value = new Date().getTime();
+  const container = document.querySelector('.containerContent');
+  container.addEventListener('scroll', onScroll);
   document.addEventListener('click', onMouseClick);
-  // Puedes agregar más listeners para otros tipos de acciones
+  document.addEventListener('keydown', onKeyDown);
 });
 
 onBeforeUnmount(() => {
+  const container = document.querySelector('.containerContent');
+  container.removeEventListener('scroll', onScroll);
   document.removeEventListener('click', onMouseClick);
-  // Elimina otros listeners aquí
+  document.removeEventListener('keydown', onKeyDown);
+  const mapContainer = document.getElementById('map');
+  mapContainer.removeEventListener('scroll', onScroll);
 });
 
-// Ejemplo de cómo puedes registrar el tiempo de clic del ratón
-const onMouseClick = () => {
-  logAction('mouseClick');
+
+
+const handleNumberInput = (event, fieldName) => {
+  onFieldChange(fieldName);
+  limitPhoneNumber(fieldName);
 };
 
+const handleDate= (event, fieldName) => {
+  onFieldChange(fieldName);
+  validateDate(fieldName);
+
+};
+
+
+const handleNumber = (event, fieldName) => {
+  onFieldChange(fieldName);
+  validateNumber(fieldName);
+};
+
+
+
+const actionTable = ref([
+  { operator: 'username', title: 'Nombre de Usuario', K: 0, P: 0, H: 0, M: 0, B: 0, Scrolling: 0 },
+  { operator: 'correo', title: 'Correo Electrónico', K: 0, P: 0, H: 0, M: 0, B: 0, Scrolling: 0 },
+  { operator: 'gender', title: 'Género', K: 0, P: 0, H: 0, M: 0, B: 0, Scrolling: 0 },
+  { operator: 'phoneNumber', title: 'Teléfono Celular', K: 0, P: 0, H: 0, M: 0, B: 0, Scrolling: 0 },
+  { operator: 'number', title: 'Teléfono Fijo', K: 0, P: 0, H: 0, M: 0, B: 0, Scrolling: 0 },
+
+
+  { operator: 'firstName', title: 'Nombre', K: 0, P: 0, H: 0, M: 0, B: 0, Scrolling: 0 },
+  { operator: 'lastName', title: 'Apellido', K: 0, P: 0, H: 0, M: 0, B: 0, Scrolling: 0 },
+  { operator: 'cedula', title: 'Número de Cédula', K: 0, P: 0, H: 0, M: 0, B: 0, Scrolling: 0 },
+  { operator: 'ubicacion', title: 'Ubicacion', K: 0, P: 0, H: 0, M: 0, B: 0, Scrolling: 0 },
+  { operator: 'city', title: 'Ciudad', K: 0, P: 0, H: 0, M: 0, B: 0, Scrolling: 0 },
+  { operator: 'state', title: 'Estado', K: 0, P: 0, H: 0, M: 0, B: 0, Scrolling: 0 },
+  { operator: 'country', title: 'País', K: 0, P: 0, H: 0, M: 0, B: 0, Scrolling: 0 },
+  { operator: 'postcode', title: 'Código Postal', K: 0, P: 0, H: 0, M: 0, B: 0, Scrolling: 0 },
+  { operator: 'latitude', title: 'Latitud', K: 0, P: 0, H: 0, M: 0, B: 0, Scrolling: 0 },
+  { operator: 'longitude', title: 'Longitud', K: 0, P: 0, H: 0, M: 0, B: 0, Scrolling: 0 },
+  { operator: 'offset', title: 'Offset', K: 0, P: 0, H: 0, M: 0, B: 0, Scrolling: 0 },
+  { operator: 'description', title: 'Descripción', K: 0, P: 0, H: 0, M: 0, B: 0, Scrolling: 0 },
+  { operator: 'date', title: 'Fecha', K: 0, P: 0, H: 0, M: 0, B: 0, Scrolling: 0 },
+  { operator: 'ageUser', title: 'Edad del Usuario', K: 0, P: 0, H: 0, M: 0, B: 0, Scrolling: 0 },
+  { operator: 'dateRegister', title: 'Fecha de Registro', K: 0, P: 0, H: 0, M: 0, B: 0, Scrolling: 0 },
+  { operator: 'profilePicture', title: 'Foto de Perfil', K: 0, P: 0, H: 0, M: 0, B: 0, Scrolling: 0 },
+]);
+
+const actionTimes = {
+  K: 0.2,
+  P: 1.1,
+  H: 0.4,
+  M: 1.2,
+  B: 0.1,
+  Scrolling: 3.96,
+};
+
+const calculateTotalTime = () => {
+  let totalTime = 0;
+  actionTable.value.forEach((action) => {
+    for (const key in actionTimes) {
+      totalTime += action[key] * actionTimes[key];
+    }
+  });
+  return totalTime.toFixed(2); // Redondear a 2 decimales
+};
+
+const showSuccessMessage = () => {
+  const totalTime = calculateTotalTime();
+  message.value = (`¡Formulario enviado correctamente! Tiempo total transcurrido: ${totalTime} segundos.`);
+  messageClass.value="success-message";
+};
+
+const actionLog = ref([]);
+const startTime = ref(null);
+
+const logAction = (field, actionType) => {
+  const timestamp = new Date().getTime();
+  
+  actionLog.value.push({ field, actionType, timestamp });
+  updateActionTable(field, actionType); // Asegúrate de que 'field' y 'actionType' se pasen correctamente
+};
+
+
+const updateActionTable = (field, actionType) => {
+ 
+  const action = actionTable.value.find(item => item.operator === field);
+  if (action && actionType in action) {  // Validar que el actionType sea una clave válida en la tabla
+    action[actionType]++;
+ 
+  } else {
+    console.error(`No se encontró el campo ${field} o el tipo de acción ${actionType} no es válido en actionTable.`);
+  }
+};
+
+
+
+const onFieldFocus = (field) => {
+  logAction(field, 'P'); 
+  lastSelectedField.value = field;
+};
+
+const onMouseClick = () => {
+  logAction('Campo Relacionado', 'B'); 
+  
+};
+
+
+const onFieldChange = (field) => {
+  logAction(field, 'K'); 
+};
 
 
 
@@ -384,7 +596,7 @@ const profile = ref({
   correo: "",
   phonePrefixFijo: "0241",
   phonePrefix: "0414",
-  phoneNumber: "",  // Número sin prefijo
+  phoneNumber: "",  
   number: "",
 
   cedula: "",
@@ -415,14 +627,6 @@ const limitPhoneNumber = (field) => {
 
 };
 
-const limitPhoneNumberFijo = (event) => {
-  const value = event.target.value;
-  if (value.length > 7) {
-    profile.value.number = value.slice(0, 7);
-  } else {
-    profile.value.number = value;
-  }
-};
 
 
 const getProfile = async () => {
@@ -437,7 +641,7 @@ const getProfile = async () => {
       },
     });
     profile.value = response.data;
-    profile.value.dateRegister = response.data.usuarioRegistro; // Asigna el valor aquí
+    profile.value.dateRegister = response.data.usuarioRegistro; 
     if (map.value) {
       const { latitude, longitude } = profile.value;
       map.value.setView([latitude, longitude], 13);
@@ -458,8 +662,6 @@ const updateProfile = async () => {
   try {
     const token = localStorage.getItem("token");
     const formData = new FormData();
-
-    // Concatenate phone prefix and number
     profile.value.phone = `${profile.value.phonePrefix}${profile.value.phoneNumber}`;
     profile.value.number = `${profile.value.phonePrefixFijo}${profile.value.number}`;
 
@@ -483,10 +685,9 @@ const updateProfile = async () => {
         },
       }
     );
+    showSuccessMessage();
 
-    // Mostrar el tiempo estimado en el mensaje de éxito
-    message.value = `Perfil actualizado correctamente. Tiempo estimado para completar el formulario: ${estimatedTime.toFixed(2)} segundos.`;
-    messageClass.value = "success-message";
+   
   } catch (error) {
     console.error("Error al actualizar el perfil:", error);
     message.value =
@@ -495,16 +696,7 @@ const updateProfile = async () => {
   }
 };
 
-const validatePhoneNumber = () => {
-  if (profile.value.phoneNumber.length !== 7) {
-    message.value = "El número de teléfono debe tener exactamente 7 caracteres.";
-    messageClass.value = "error-message";
-    return false; // Indica que la validación ha fallado
-  }
-  message.value = ""; // Limpia el mensaje de error si la validación es exitosa
-  messageClass.value = "";
-  return true; // Indica que la validación ha pasado
-};
+
 
 const validateNumber = (field) => {
   profile.value[field] = profile.value[field].replace(/\D/g, "");
@@ -530,7 +722,7 @@ const calculateAge = (birthDate) => {
   const today = new Date();
   const birthDateParts = birthDate.split('/');
   const birthDay = parseInt(birthDateParts[0], 10);
-  const birthMonth = parseInt(birthDateParts[1], 10) - 1; // Los meses en JavaScript son 0-11
+  const birthMonth = parseInt(birthDateParts[1], 10) - 1; 
   const birthYear = parseInt(birthDateParts[2], 10);
 
   const birthDateObj = new Date(birthYear, birthMonth, birthDay);
@@ -594,8 +786,7 @@ onMounted(() => {
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap contributors",
   }).addTo(map.value);
-
-  map.value.on("click", async (e) => {
+   map.value.on("click", async (e) => {
     const { lat, lng } = e.latlng;
     profile.value.latitude = lat;
     profile.value.longitude = lng;
@@ -603,7 +794,11 @@ onMounted(() => {
     await reverseGeocode(lat, lng);
   });
 
+  const mapContainer = document.getElementById('map');
+  mapContainer.addEventListener('scroll', onScroll);
+
   getProfile();
+
 });
 </script>
 
@@ -676,5 +871,12 @@ onMounted(() => {
   height: auto;
   margin-top: 10px;
 
+}
+
+
+
+.containerContent {
+  height: 1000px; /* o cualquier altura adecuada */
+  overflow-y: scroll;
 }
 </style>
