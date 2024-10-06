@@ -16,6 +16,7 @@
       <div class="navbar-start">
         <router-link class="navbar-item" to="/"> Inicio </router-link>
         <router-link class="navbar-item" to="#"> Galería </router-link>
+        <router-link class="navbar-item" to="/colores"> Colores </router-link> <!-- Nuevo enlace -->
       </div>
       <div class="navbar-end">
         <div class="navbar-item">
