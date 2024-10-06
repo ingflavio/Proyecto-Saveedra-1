@@ -1,14 +1,14 @@
 <template>
   <div class="containerContent is-relative">
-    <section class="section register-section">
+    <section class="section profile-section">
       <div class="container">
         <div class="columns is-centered">
           <div class="column is-half">
-            <div class="box">
-              <h1 class="title has-text-centered">Perfil del Usuario</h1>
+            <div :style="{ backgroundColor: store.colors.secondary }" class="box">
+              <h1 :style="{ color: store.colors.accent, fontSize: store.fontSizes.title + 'px' }" class="title has-text-centered">Perfil del Usuario</h1>
               <form @submit.prevent="updateProfile">
                 <div class="field">
-                  <label class="label">Nombre de Usuario</label>
+                  <label :style="{ color: store.colors.accent }" class="label">Nombre de Usuario</label>
                   <div class="control">
                     <input
                       class="input"
@@ -18,13 +18,12 @@
                       @input="onFieldChange('username')"
                       @click="onFieldClick('username')"
                       @keydown="onKeyDown('username')"
-                  
                     />
                   </div>
                 </div>
 
                 <div class="field">
-                  <label class="label">Correo Electrónico</label>
+                  <label :style="{ color: store.colors.accent }" class="label">Correo Electrónico</label>
                   <div class="control">
                     <input
                       class="input"
@@ -34,44 +33,34 @@
                       @input="onFieldChange('correo')"
                       @click="onFieldClick('correo')"
                       @keydown="onKeyDown('username')"
-                  
                     />
                   </div>
                 </div>
 
                 <div class="field">
-                  <label class="label">Género</label>
+                  <label :style="{ color: store.colors.accent }" class="label">Género</label>
                   <div class="control controlgender">
                     <label class="radio">
-                      <input type="radio" v-model="profile.gender" value="M"
-                      @click="onFieldClick('gender')" />
-                      
-
+                      <input type="radio" v-model="profile.gender" value="M" @click="onFieldClick('gender')" />
                       Masculino
                     </label>
                     <label class="radio ml-5">
-                      <input type="radio" v-model="profile.gender" value="F" 
-                      @click="onFieldClick('gender')"
-                      />
+                      <input type="radio" v-model="profile.gender" value="F" @click="onFieldClick('gender')" />
                       Femenino
                     </label>
                   </div>
                 </div>
 
                 <div class="field">
-                  <label class="label">Telefono Celular</label>
+                  <label :style="{ color: store.colors.accent }" class="label">Teléfono Celular</label>
                   <div class="control is-flex">
                     <div class="select">
-                      <select v-model="profile.phonePrefix"
-                      @focus="onFieldFocus('phoneNumber')" 
-                      @click="onFieldClick('phoneNumber')"
-                      >
+                      <select v-model="profile.phonePrefix" @focus="onFieldFocus('phoneNumber')" @click="onFieldClick('phoneNumber')">
                         <option value="0414">0414</option>
                         <option value="0424">0424</option>
                         <option value="0412">0412</option>
                         <option value="0416">0416</option>
                         <option value="0426">0426</option>
-                        
                       </select>
                     </div>
                     <input
@@ -79,7 +68,6 @@
                       type="text"
                       placeholder="Resto del número"
                       v-model="profile.phoneNumber"
-                
                       @focus="onFieldFocus('phoneNumber')"
                       @input="handleNumberInput($event, 'phoneNumber')"
                       @click="onFieldClick('phoneNumber')"
@@ -89,14 +77,11 @@
                   </div>
                 </div>
 
-
                 <div class="field">
-                  <label class="label">Telefono Fijo</label>
+                  <label :style="{ color: store.colors.accent }" class="label">Teléfono Fijo</label>
                   <div class="control is-flex">
                     <div class="select">
-                      <select v-model="profile.phonePrefixFijo"
-                      @focus="onFieldFocus('number')" 
-                      @click="onFieldClick('number')">
+                      <select v-model="profile.phonePrefixFijo" @focus="onFieldFocus('number')" @click="onFieldClick('number')">
                         <option value="0212">0212</option>
                         <option value="0241">0241</option>
                         <option value="0243">0243</option>
@@ -110,14 +95,12 @@
                         <option value="0288">0288</option>
                         <option value="0289">0289</option>
                         <option value="0291">0291</option>
-                        <option value="0293">0293</option>   
+                        <option value="0293">0293</option>
                         <option value="0294">0294</option>
                         <option value="0295">0295</option>
                         <option value="0296">0296</option>
                         <option value="0297">0297</option>
-                   
-                        </select>   
-
+                      </select>
                     </div>
                     <input
                       class="input"
@@ -133,9 +116,8 @@
                   </div>
                 </div>
 
-
                 <div class="field">
-                  <label class="label">Nombre</label>
+                  <label :style="{ color: store.colors.accent }" class="label">Nombre</label>
                   <div class="control">
                     <input
                       class="input"
@@ -150,7 +132,7 @@
                 </div>
 
                 <div class="field">
-                  <label class="label">Apellido</label>
+                  <label :style="{ color: store.colors.accent }" class="label">Apellido</label>
                   <div class="control">
                     <input
                       class="input"
@@ -165,7 +147,7 @@
                 </div>
 
                 <div class="field">
-                  <label class="label">Número De Cedula</label>
+                  <label :style="{ color: store.colors.accent }" class="label">Número De Cédula</label>
                   <div class="control">
                     <input
                       class="input"
@@ -180,62 +162,58 @@
                 </div>
 
                 <div class="field">
-                  <label class="label">Ubicación</label>
+                  <label :style="{ color: store.colors.accent }" class="label">Ubicación</label>
                   <div class="control">
                     <div id="map"
-
                       @focus="onFieldFocus('ubicacion')"
                       @input="onFieldChange('ubicacion')"
                       @click="onFieldClick('ubicacion')"
                       @keydown="onKeyDown('ubicacion')"
-              
-                     style="height: 400px"></div>
+                      style="height: 400px"></div>
                   </div>
                 </div>
 
                 <div class="field">
-                  <label class="label">Ciudad</label>
+                  <label :style="{ color: store.colors.accent }" class="label">Ciudad</label>
                   <div class="control">
                     <input class="input" type="text" v-model="profile.city" 
-                    @focus="onFieldFocus('city')"
-                    @input="onFieldChange('city')"
-                    @click="onFieldClick('city')"
-                    @keydown="onKeyDown('city')"
-                    
-                    
+                      @focus="onFieldFocus('city')"
+                      @input="onFieldChange('city')"
+                      @click="onFieldClick('city')"
+                      @keydown="onKeyDown('city')"
                     />
                   </div>
                 </div>
 
                 <div class="field">
-                  <label class="label">Estado</label>
+                  <label :style="{ color: store.colors.accent }" class="label">Estado</label>
                   <div class="control">
                     <input class="input" type="text" v-model="profile.state"
-                    @focus="onFieldFocus('state')"
-                    @input="onFieldChange('state')"
-                    @click="onFieldClick('state')"
-                    @keydown="onKeyDown('state')"
+                      @focus="onFieldFocus('state')"
+                      @input="onFieldChange('state')"
+                      @click="onFieldClick('state')"
+                      @keydown="onKeyDown('state')"
                     />
                   </div>
                 </div>
 
                 <div class="field">
-                  <label class="label">País</label>
+                  <label :style="{ color: store.colors.accent }" class="label">País</label>
                   <div class="control">
                     <input
                       class="input"
                       type="text"
                       v-model="profile.country"
                       @focus="onFieldFocus('country')"
-                    @input="onFieldChange('country')"
-                    @click="onFieldClick('country')"
-                    @keydown="onKeyDown('country')"
+                      @input="onFieldChange('country')"
+                      @click="onFieldClick('country')"
+                      @keydown="onKeyDown('country')"
                     />
                   </div>
                 </div>
 
                 <div class="field">
-                  <label class="label">Código Postal</label>
+                  <label :style="{ color: store.colors.accent }" class="label">Código Postal</label>
                   <div class="control">
                     <input
                       class="input"
@@ -250,7 +228,7 @@
                 </div>
 
                 <div class="field">
-                  <label class="label">Latitud</label>
+                  <label :style="{ color: store.colors.accent }" class="label">Latitud</label>
                   <div class="control">
                     <input
                       class="input"
@@ -265,7 +243,7 @@
                 </div>
 
                 <div class="field">
-                  <label class="label">Longitud</label>
+                  <label :style="{ color: store.colors.accent }" class="label">Longitud</label>
                   <div class="control">
                     <input
                       class="input"
@@ -280,42 +258,40 @@
                 </div>
 
                 <div class="field">
-                  <label class="label">Offset</label>
+                  <label :style="{ color: store.colors.accent }" class="label">Offset</label>
                   <div class="control">
                     <input class="input" type="text" v-model="profile.offset" 
-                    @input="handleNumber($event, 'offset')"
-                    @focus="onFieldFocus('offset')"
-                    @click="onFieldClick('offset')"
-                    @keydown="onKeyDown('offset')"
-                    
+                      @input="handleNumber($event, 'offset')"
+                      @focus="onFieldFocus('offset')"
+                      @click="onFieldClick('offset')"
+                      @keydown="onKeyDown('offset')"
                     />
                   </div>
                 </div>
 
                 <div class="field">
-                  <label class="label">Descripción</label>
+                  <label :style="{ color: store.colors.accent }" class="label">Descripción</label>
                   <div class="control">
                     <input
                       class="input"
                       type="text"
                       v-model="profile.description"
-                    @focus="onFieldFocus('description')"
-                    @input="onFieldChange('description')"
-                    @click="onFieldClick('description')"
-                    @keydown="onKeyDown('description')"
+                      @focus="onFieldFocus('description')"
+                      @input="onFieldChange('description')"
+                      @click="onFieldClick('description')"
+                      @keydown="onKeyDown('description')"
                     />
                   </div>
                 </div>
 
                 <div class="field">
-                  <label class="label">Fecha de Nacimiento</label>
+                  <label :style="{ color: store.colors.accent }" class="label">Fecha de Nacimiento</label>
                   <div class="control">
                     <input
                       class="input"
                       type="text"
                       v-model="profile.date"
                       placeholder="DD/MM/YYYY"
-      
                       @focus="onFieldFocus('date')"
                       @input="handleDate($event, 'date')"
                       @click="onFieldClick('date')"
@@ -325,7 +301,7 @@
                 </div>
 
                 <div class="field">
-                  <label class="label">Edad del Usuario</label>
+                  <label :style="{ color: store.colors.accent }" class="label">Edad del Usuario</label>
                   <div class="control">
                     <input
                       class="input"
@@ -341,25 +317,23 @@
                 </div>
 
                 <div class="field">
-                  <label class="label">Fecha de Registro</label>
+                  <label :style="{ color: store.colors.accent }" class="label">Fecha de Registro</label>
                   <div class="control">
                     <input
                       class="input"
                       type="text"
                       v-model="profile.dateRegister"
                       placeholder="DD/MM/YYYY"
-          
                       @focus="onFieldFocus('date')"
                       @input="handleDate($event, 'date')"
                       @click="onFieldClick('date')"
                       @keydown="onKeyDown('date')"
                     />
-                
                   </div>
-                  
                 </div>
+
                 <div class="field">
-                  <label class="label">Foto de Perfil</label>
+                  <label :style="{ color: store.colors.accent }" class="label">Foto de Perfil</label>
                   <div class="control">
                     <input
                       class="input"
@@ -376,10 +350,9 @@
                   </div>
                 </div>
 
-   
                 <div class="field is-grouped is-grouped-centered">
                   <div class="control">
-                    <button class="button is-link" type="submit">
+                    <button :style="{ backgroundColor: store.colors.primary, color: store.colors.accent }" class="button is-link" type="submit">
                       Actualizar
                     </button>
                   </div>
@@ -389,8 +362,8 @@
             </div>
           </div>
           <div class="column is-half">
-            <div class="box">
-              <h1 class="title has-text-centered">Registro de Acciones</h1>
+            <div :style="{ backgroundColor: store.colors.secondary }" class="box">
+              <h1 :style="{ color: store.colors.accent, fontSize: store.fontSizes.title + 'px' }" class="title has-text-centered">Registro de Acciones</h1>
               <table class="table is-fullwidth">
                 <thead>
                   <tr>
@@ -423,10 +396,15 @@
   </div>
 </template>
 
+
+
 <script setup>
 import { ref, onMounted ,onBeforeUnmount} from "vue";
 import axios from "axios";
 import L from "leaflet";
+import { useValoresStore } from '../store/useValoresStore.js'; // Ajusta la ruta según sea necesario
+const store = useValoresStore();
+
 
 const lastScrollTime = ref(0); // Variable para el tiempo del último scroll
 const hasSwitchedToKeyboard = ref({});
@@ -802,7 +780,6 @@ onMounted(() => {
 });
 </script>
 
-
 <style scoped>
 .register-section {
   position: relative;
@@ -826,10 +803,11 @@ onMounted(() => {
   padding: 20px;
   position: relative;
   z-index: 1;
-  background-color: #919da3;
+  background-color: rgba(145, 157, 163, 0.9); 
 }
 .title {
   margin-bottom: 20px;
+  color: #000; 
 }
 .footer {
   padding: 1px !important;
@@ -861,22 +839,16 @@ onMounted(() => {
   color: white;
 }
 
-
 .preview img {
-  
-
-  max-width: 150px; /* Ancho máximo */
-  max-height: 150px; /* Alto máximo */
+  max-width: 150px;
+  max-height: 150px;
   width: auto;
   height: auto;
   margin-top: 10px;
-
 }
 
-
-
 .containerContent {
-  height: 1000px; /* o cualquier altura adecuada */
+  height: 1000px;
   overflow-y: scroll;
 }
 </style>

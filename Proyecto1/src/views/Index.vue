@@ -1,6 +1,9 @@
 <template>
   <div class="containerContent is-relative">
-    <div class="banner"></div>
+    <div
+      class="banner"
+      :style="{ backgroundColor: store.colors.secondary }"
+    ></div>
     <div class="sliderIndex">
       <swiper
         :slidesPerView="3"
@@ -12,6 +15,14 @@
         :modules="modules"
         class="mySwiper"
       >
+        <swiper-slide v-for="(item, index) in slides" :key="index">
+          <div
+            :style="{ color: store.colors.accent, fontSize: store.fontSizes.paragraph + 'px' }"
+            class="slide-content"
+          >
+            {{ item.title }}
+          </div>
+        </swiper-slide>
       </swiper>
     </div>
   </div>
@@ -30,8 +41,14 @@ import { useValoresStore } from '../store/useValoresStore.js';
 export default {
   setup() {
     const store = useValoresStore();
+    const slides = [
+
+    ];
+    
     return {
       modules: [FreeMode, Pagination],
+      slides,
+      store, 
     };
   },
 };
@@ -53,5 +70,9 @@ export default {
 
 .sliderIndex {
   padding: 50px;
+}
+
+.slide-content {
+  padding: 20px;
 }
 </style>

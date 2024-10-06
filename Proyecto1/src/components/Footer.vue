@@ -1,16 +1,20 @@
 <template>
-  <footer class="footer">
-    <div class="content has-text-centered">
+  <footer :style="{ backgroundColor: store.colors.secondary }" class="footer">
+    <div :style="{ color: store.colors.accent }" class="content has-text-centered">
       <strong>Creador por:</strong> <span>Flavio Franchich</span>
     </div>
   </footer>
 </template>
 
+<script setup>
+import { useValoresStore } from '../store/useValoresStore.js';
 
-<style>
-.footer{
-    background-color: #b3c4cc;
-    color: black;
-    --bulma-footer-padding: 20px !important;
+const store = useValoresStore();
+</script>
+
+<style scoped>
+.footer {
+  color: black; /* Color por defecto si no se establece desde el store */
+  padding: var(--bulma-footer-padding, 20px); /* Usar la variable si está definida */
 }
 </style>

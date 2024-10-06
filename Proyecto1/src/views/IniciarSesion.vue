@@ -4,18 +4,18 @@
       <div class="container">
         <div class="columns is-centered">
           <div class="column is-half">
-            <div class="box">
-              <h1 class="title has-text-centered">Iniciar Sesión</h1>
+            <div :style="{ backgroundColor: store.colors.secondary }" class="box">
+              <h1 :style="{ color: store.colors.accent, fontSize: store.fontSizes.title + 'px' }" class="title has-text-centered">Iniciar Sesión</h1>
               <form @submit.prevent="login">
                 <div class="field">
-                  <label class="label">Nombre de Usuario</label>
+                  <label :style="{ color: store.colors.accent, fontSize: store.fontSizes.subtitle + 'px' }" class="label">Nombre de Usuario</label>
                   <div class="control">
                     <input class="input" type="text" v-model="username" required />
                   </div>
                 </div>
 
                 <div class="field">
-                  <label class="label">Contraseña</label>
+                  <label :style="{ color: store.colors.accent, fontSize: store.fontSizes.subtitle + 'px' }" class="label">Contraseña</label>
                   <div class="control">
                     <input class="input" type="password" v-model="password" required />
                   </div>
@@ -23,11 +23,11 @@
 
                 <div class="field is-grouped is-grouped-centered">
                   <div class="control">
-                    <button class="button is-link" type="submit">Enviar</button>
+                    <button :style="{ backgroundColor: store.colors.primary, color: store.colors.accent, fontSize: store.fontSizes.paragraph + 'px' }" class="button" type="submit">Enviar</button>
                   </div>
                 </div>
               </form>
-              <p v-if="message" :class="messageClass">{{ message }}</p>
+              <p v-if="message" :class="messageClass" :style="{ color: messageClass === 'success-message' ? 'green' : 'red', fontSize: store.fontSizes.paragraph + 'px' }">{{ message }}</p>
             </div>
           </div>
         </div>
@@ -40,12 +40,14 @@
 import { ref } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
+import { useValoresStore } from '../store/useValoresStore.js';
 
 const username = ref('');
 const password = ref('');
 const message = ref('');
 const messageClass = ref('');
 const router = useRouter();
+const store = useValoresStore();
 
 const login = async () => {
   try {
@@ -55,7 +57,6 @@ const login = async () => {
     });
     message.value = 'Usuario autenticado';
     messageClass.value = 'success-message';
-    console.log('Usuario autenticado:', response.data);
     localStorage.setItem('token', response.data.token);
     setTimeout(() => {
       router.push('/').then(() => {
@@ -65,7 +66,6 @@ const login = async () => {
   } catch (error) {
     message.value = 'Error en el registro';
     messageClass.value = 'error-message';
-    console.error('Error al autenticar el usuario:', error);
   }
 };
 </script>
@@ -93,26 +93,8 @@ const login = async () => {
   padding: 20px;
   position: relative;
   z-index: 1;
-  background-color: #919da3;
 }
-.title {
-  margin-bottom: 20px;
-}
-.footer {
-  padding: 1px !important;
-  background-color: #b3c4cc;
-  color: black;
-}
-
-.success-message {
-  color: green;
-  font-size: 1.5em;
-  font-weight: bold;
-  margin-top: 20px;
-  text-align: center;
-}
-.error-message {
-  color: red;
+.success-message, .error-message {
   font-size: 1.5em;
   font-weight: bold;
   margin-top: 20px;

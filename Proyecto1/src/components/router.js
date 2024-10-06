@@ -4,7 +4,7 @@ import Index from '../views/Index.vue';
 import Register from '../views/Register.vue'; 
 import Inciar from '../views/IniciarSesion.vue'
 import perfil from '../components/perfil.vue';
-import Colores from '../views/colores.vue'; // Asegúrate de importar el nuevo componente
+import Colores from '../views/colores.vue';
 const routes = [
   { path: '/', component: Index },
   { path: '/register', component: Register }, 
