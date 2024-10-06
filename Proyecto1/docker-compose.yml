@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  mysql:
+    image: mysql
+    container_name: pruebas
+    environment:
+      MYSQL_ROOT_PASSWORD: flavio2000
+      MYSQL_DATABASE: Interfaces
+      MYSQL_USER: root
+      MYSQL_PASSWORD: flavio2000
+    ports:
+      - "3306:3306"
+
+
