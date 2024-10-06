@@ -1,11 +1,10 @@
 <template>
-  <nav class="navbar is-transparent">
+  <nav :style="{ backgroundColor: primaryColor }" class="navbar is-transparent">
     <div class="navbar-brand">
       <div
         class="navbar-burger js-burger"
         data-target="navbarExampleTransparentExample"
       >
-        <span></span>
         <span></span>
         <span></span>
         <span></span>
@@ -16,7 +15,7 @@
       <div class="navbar-start">
         <router-link class="navbar-item" to="/"> Inicio </router-link>
         <router-link class="navbar-item" to="#"> Galería </router-link>
-        <router-link class="navbar-item" to="/colores"> Colores </router-link> <!-- Nuevo enlace -->
+        <router-link class="navbar-item" to="/colores"> Colores </router-link>
       </div>
       <div class="navbar-end">
         <div class="navbar-item">
@@ -43,30 +42,8 @@
   </nav>
 </template>
 
-<script setup>
-import { ref, onMounted } from 'vue';
-
-const isAuthenticated = ref(false);
-
-onMounted(() => {
-  const token = localStorage.getItem('token');
-  if (token) {
-    isAuthenticated.value = true;
-  }
-});
-</script>
 
 <style>
-.navbar {
-  background-color: #48cae4 !important;
-  min-height: 30px;
-  max-height: 120px;
-}
-
-.navbar-menu {
-  background-color: #48cae4 !important;
-}
-
 .navbar-item {
   color: black !important;
 }
@@ -74,15 +51,10 @@ onMounted(() => {
 .buttonNav {
   background-color: #b3c4cc;
   color: black;
-  --bulma-button-border-style: none;
 }
 
 .buttonNav:hover {
   background-color: #919da3;
-}
-
-strong {
-  color: black !important;
 }
 
 @media only screen and (max-width: 1023px) {
@@ -91,3 +63,24 @@ strong {
   }
 }
 </style>
+
+<script setup>
+import { ref, onMounted, watch } from "vue";
+import { useValoresStore } from "../store/useValoresStore.js";
+
+const store = useValoresStore();
+const primaryColor = ref(store.colors.primary);
+
+watch(() => store.colors.primary, (newColor) => {
+  primaryColor.value = newColor;
+});
+
+const isAuthenticated = ref(false);
+
+onMounted(() => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    isAuthenticated.value = true;
+  }
+});
+</script>

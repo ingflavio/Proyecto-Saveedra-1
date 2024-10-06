@@ -12,112 +12,30 @@
         :modules="modules"
         class="mySwiper"
       >
-        <swiper-slide
-          ><div class="card">
-            <div class="card-image">
-              <figure class="image">
-                <img src="../../public/card1.jpg" alt="Placeholder image" />
-              </figure>
-            </div>
-            <div class="card-content">
-              <div class="media">
-                <div class="media-left"></div>
-                <div class="media-content">
-                  <p class="title is-4">Miss Fortune</p>
-                </div>
-              </div>
-            </div>
-          </div></swiper-slide
-        >
-        <swiper-slide
-          ><div class="card">
-            <div class="card-image">
-              <figure class="image">
-                <img src="../../public/card1.jpg" alt="Placeholder image" />
-              </figure>
-            </div>
-            <div class="card-content">
-              <div class="media">
-                <div class="media-left"></div>
-                <div class="media-content">
-                  <p class="title is-4">Miss Fortune</p>
-                </div>
-              </div>
-            </div>
-          </div></swiper-slide
-        >
-        <swiper-slide
-          ><div class="card">
-            <div class="card-image">
-              <figure class="image">
-                <img src="../../public/card1.jpg" alt="Placeholder image" />
-              </figure>
-            </div>
-            <div class="card-content">
-              <div class="media">
-                <div class="media-left"></div>
-                <div class="media-content">
-                  <p class="title is-4">Miss Fortune</p>
-                </div>
-              </div>
-            </div>
-          </div></swiper-slide
-        >
-        <swiper-slide
-          ><div class="card">
-            <div class="card-image">
-              <figure class="image">
-                <img src="../../public/card1.jpg" alt="Placeholder image" />
-              </figure>
-            </div>
-            <div class="card-content">
-              <div class="media">
-                <div class="media-left"></div>
-                <div class="media-content">
-                  <p class="title is-4">Miss Fortune</p>
-                </div>
-              </div>
-            </div>
-          </div></swiper-slide
-        >
-        <swiper-slide
-          ><div class="card">
-            <div class="card-image">
-              <figure class="image">
-                <img src="../../public/card1.jpg" alt="Placeholder image" />
-              </figure>
-            </div>
-            <div class="card-content">
-              <div class="media">
-                <div class="media-left"></div>
-                <div class="media-content">
-                  <p class="title is-4">Miss Fortune</p>
-                </div>
-              </div>
-            </div>
-          </div></swiper-slide
-        >
-        <swiper-slide
-          ><div class="card">
-            <div class="card-image">
-              <figure class="image">
-                <img src="../../public/card1.jpg" alt="Placeholder image" />
-              </figure>
-            </div>
-            <div class="card-content">
-              <div class="media">
-                <div class="media-left"></div>
-                <div class="media-content">
-                  <p class="title is-4">Miss Fortune</p>
-                </div>
-              </div>
-            </div>
-          </div></swiper-slide
-        >
       </swiper>
     </div>
   </div>
 </template>
+
+<script>
+import { Swiper, SwiperSlide } from "swiper/vue";
+import { FreeMode, Pagination } from "swiper/modules";
+
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/pagination";
+
+import { useValoresStore } from '../store/useValoresStore.js';
+
+export default {
+  setup() {
+    const store = useValoresStore();
+    return {
+      modules: [FreeMode, Pagination],
+    };
+  },
+};
+</script>
 
 <style>
 .banner {
@@ -133,30 +51,7 @@
   background-position: center;
 }
 
-.sliderIndex{
-    padding: 50px;
+.sliderIndex {
+  padding: 50px;
 }
 </style>
-
-<script>
-import { Swiper, SwiperSlide } from "swiper/vue";
-
-import "swiper/css";
-
-import "swiper/css/free-mode";
-import "swiper/css/pagination";
-
-import { FreeMode, Pagination } from "swiper/modules";
-
-export default {
-  components: {
-    Swiper,
-    SwiperSlide,
-  },
-  setup() {
-    return {
-      modules: [FreeMode, Pagination],
-    };
-  },
-};
-</script>
