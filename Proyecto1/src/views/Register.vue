@@ -111,7 +111,7 @@ const register = async () => {
 }
 .box {
   padding: 20px;
-  position: relative;
+  position: absolute;
   z-index: 1;
 }
 .success-message, .error-message {
