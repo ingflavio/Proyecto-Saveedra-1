@@ -1,25 +1,31 @@
 <template>
   <div class="colores-container">
-    <h1 class="title">Ajustar Tamaño de Fuente</h1>
+    <h1 class="title" :style="{ color: colors.accent, fontSize: fontSizes.title + 'px' }">Ajustar Tamaño de Fuente</h1>
     <div class="box" :style="{ backgroundColor: colors.secondary }">
       <section class="font-size-section">
         <div class="field" v-for="(value, key) in fontSizes" :key="key">
-          <label class="label">Tamaño de {{ key.charAt(0).toUpperCase() + key.slice(1) }}</label>
+          <label 
+            class="label" 
+            :style="{ color: colors.accent, fontSize: fontSizes.paragraph + 'px' }"
+          >
+            Tamaño de {{ key.charAt(0).toUpperCase() + key.slice(1) }}
+          </label>
           <div class="control">
             <input
               class="input"
               type="number"
               :value="value"
               @input="updateFontSize(key, $event.target.value)"
+              :style="{ color: colors.accent }"
             />
           </div>
         </div>
       </section>
 
-      <h1 class="title">Configuración de Colores y Tipografía</h1>
+      <h2 class="subtitle" :style="{ color: colors.accent, fontSize: fontSizes.subtitle + 'px' }">Configuración de Colores y Tipografía</h2>
       <section class="color-section">
         <div class="field" v-for="(colorValue, key) in colors" :key="key">
-          <label class="label">{{ key.charAt(0).toUpperCase() + key.slice(1) }}</label>
+          <label class="label"  :style="{ color: colors.accent, fontSize: fontSizes.paragraph + 'px' }">{{ key.charAt(0).toUpperCase() + key.slice(1) }}</label>
           <div class="control">
             <input type="color" :value="colorValue" @input="updateColor(key, $event.target.value)" />
           </div>
@@ -28,6 +34,7 @@
     </div>
   </div>
 </template>
+
 
 <script setup>
 import { ref, computed } from 'vue';
@@ -65,6 +72,7 @@ const updateColor = (key, value) => {
   background-size: cover;
   background-position: center;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -75,8 +83,7 @@ const updateColor = (key, value) => {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 500px;
-  
-  margin: auto; /* Asegura que la caja esté centrada horizontalmente */
+  margin: auto;
 }
 
 .title {

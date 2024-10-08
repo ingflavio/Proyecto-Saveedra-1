@@ -32,7 +32,7 @@
                       @focus="onFieldFocus('correo')"
                       @input="onFieldChange('correo')"
                       @click="onFieldClick('correo')"
-                      @keydown="onKeyDown('username')"
+                      @keydown="onKeyDown('correo')"
                     />
                   </div>
                 </div>
@@ -324,10 +324,10 @@
                       type="text"
                       v-model="profile.dateRegister"
                       placeholder="DD/MM/YYYY"
-                      @focus="onFieldFocus('date')"
-                      @input="handleDate($event, 'date')"
-                      @click="onFieldClick('date')"
-                      @keydown="onKeyDown('date')"
+                      @focus="onFieldFocus('dateRegister')"
+                      @input="handleDate($event, 'dateRegister')"
+                      @click="onFieldClick('dateRegister')"
+                      @keydown="onKeyDown('dateRegister')"
                     />
                   </div>
                 </div>
@@ -352,7 +352,7 @@
 
                 <div class="field is-grouped is-grouped-centered">
                   <div class="control">
-                    <button :style="{ backgroundColor: store.colors.primary, color: store.colors.accent }" class="button is-link" type="submit">
+                    <button :style="{ backgroundColor: store.colors.button, color: store.colors.accent }" class="button is-link" type="submit">
                       Actualizar
                     </button>
                   </div>
@@ -362,34 +362,35 @@
             </div>
           </div>
           <div class="column is-half">
-            <div :style="{ backgroundColor: store.colors.secondary }" class="box">
-              <h1 :style="{ color: store.colors.accent, fontSize: store.fontSizes.title + 'px' }" class="title has-text-centered">Registro de Acciones</h1>
-              <table class="table is-fullwidth">
-                <thead>
-                  <tr>
-                    <th>Título</th>
-                    <th>K</th>
-                    <th>P</th>
-                    <th>H</th>
-                    <th>M</th>
-                    <th>B</th>
-                    <th>Scrolling</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="action in actionTable" :key="action.operator">
-                    <td>{{ action.title }}</td>
-                    <td>{{ action.K }}</td>
-                    <td>{{ action.P }}</td>
-                    <td>{{ action.H }}</td>
-                    <td>{{ action.M }}</td>
-                    <td>{{ action.B }}</td>
-                    <td>{{ action.Scrolling }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+  <div :style="{ backgroundColor: store.colors.secondary }" class="box">
+    <h1 :style="{ color: store.colors.accent, fontSize: store.fontSizes.title + 'px' }" class="title has-text-centered">Registro de Acciones</h1>
+    <table class="table is-fullwidth">
+      <thead>
+        <tr>
+          <th :style="{ color: store.colors.accent }">Título</th>
+          <th :style="{ color: store.colors.accent }">K</th>
+          <th :style="{ color: store.colors.accent }">P</th>
+          <th :style="{ color: store.colors.accent }">H</th>
+          <th :style="{ color: store.colors.accent }">M</th>
+          <th :style="{ color: store.colors.accent }">B</th>
+          <th :style="{ color: store.colors.accent }">Scrolling</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="action in actionTable" :key="action.operator">
+          <td :style="{ color: store.colors.accent }">{{ action.title }}</td>
+          <td :style="{ color: store.colors.accent }">{{ action.K }}</td>
+          <td :style="{ color: store.colors.accent }">{{ action.P }}</td>
+          <td :style="{ color: store.colors.accent }">{{ action.H }}</td>
+          <td :style="{ color: store.colors.accent }">{{ action.M }}</td>
+          <td :style="{ color: store.colors.accent }">{{ action.B }}</td>
+          <td :style="{ color: store.colors.accent }">{{ action.Scrolling }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
         </div>
       </div>
     </section>

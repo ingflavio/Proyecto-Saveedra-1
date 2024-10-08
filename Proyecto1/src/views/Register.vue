@@ -8,28 +8,28 @@
               <h1 :style="{ color: store.colors.accent, fontSize: store.fontSizes.title + 'px' }" class="title has-text-centered">Registro</h1>
               <form @submit.prevent="register">
                 <div class="field">
-                  <label :style="{ color: store.colors.accent, fontSize: store.fontSizes.subtitle + 'px' }" class="label">Nombre de Usuario</label>
+                  <label :style="{ color: store.colors.accent, fontSize: store.fontSizes.paragraph + 'px' }" class="label">Nombre de Usuario</label>
                   <div class="control">
                     <input class="input" type="text" v-model="username" required />
                   </div>
                 </div>
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent, fontSize: store.fontSizes.subtitle + 'px' }" class="label">Correo Electrónico</label>
+                  <label :style="{ color: store.colors.accent, fontSize: store.fontSizes.paragraph + 'px' }" class="label">Correo Electrónico</label>
                   <div class="control">
                     <input class="input" type="email" v-model="email" required />
                   </div>
                 </div>
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent, fontSize: store.fontSizes.subtitle + 'px' }" class="label">Contraseña</label>
+                  <label :style="{ color: store.colors.accent, fontSize: store.fontSizes.paragraph + 'px' }" class="label">Contraseña</label>
                   <div class="control">
                     <input class="input" type="password" v-model="password" required />
                   </div>
                 </div>
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent, fontSize: store.fontSizes.subtitle + 'px' }" class="label">Repetir Contraseña</label>
+                  <label :style="{ color: store.colors.accent, fontSize: store.fontSizes.paragraph + 'px' }" class="label">Repetir Contraseña</label>
                   <div class="control">
                     <input class="input" type="password" v-model="confirmPassword" required />
                   </div>
@@ -37,7 +37,7 @@
 
                 <div class="field is-grouped is-grouped-centered">
                   <div class="control">
-                    <button :style="{ backgroundColor: store.colors.primary, color: store.colors.accent, fontSize: store.fontSizes.paragraph + 'px' }" class="button is-link" type="submit">Registrarse</button>
+                    <button :style="{ backgroundColor: store.colors.button, color: store.colors.accent, fontSize: store.fontSizes.paragraph + 'px' }" class="button is-link" type="submit">Registrarse</button>
                   </div>
                 </div>
               </form>
@@ -49,6 +49,7 @@
     </section>
   </div>
 </template>
+
 
 <script setup>
 import { ref } from 'vue';

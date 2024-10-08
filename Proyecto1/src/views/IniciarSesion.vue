@@ -8,14 +8,14 @@
               <h1 :style="{ color: store.colors.accent, fontSize: store.fontSizes.title + 'px' }" class="title has-text-centered">Iniciar Sesión</h1>
               <form @submit.prevent="login">
                 <div class="field">
-                  <label :style="{ color: store.colors.accent, fontSize: store.fontSizes.subtitle + 'px' }" class="label">Nombre de Usuario</label>
+                  <label :style="{ color: store.colors.accent, fontSize: store.fontSizes.paragraph + 'px' }" class="label">Nombre de Usuario</label>
                   <div class="control">
                     <input class="input" type="text" v-model="username" required />
                   </div>
                 </div>
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent, fontSize: store.fontSizes.subtitle + 'px' }" class="label">Contraseña</label>
+                  <label :style="{ color: store.colors.accent, fontSize: store.fontSizes.paragraph + 'px' }" class="label">Contraseña</label>
                   <div class="control">
                     <input class="input" type="password" v-model="password" required />
                   </div>
@@ -23,7 +23,7 @@
 
                 <div class="field is-grouped is-grouped-centered">
                   <div class="control">
-                    <button :style="{ backgroundColor: store.colors.primary, color: store.colors.accent, fontSize: store.fontSizes.paragraph + 'px' }" class="button" type="submit">Enviar</button>
+                    <button :style="{ backgroundColor: store.colors.button, color: store.colors.accent, fontSize: store.fontSizes.paragraph + 'px' }" class="button" type="submit">Enviar</button>
                   </div>
                 </div>
               </form>
@@ -35,6 +35,8 @@
     </section>
   </div>
 </template>
+
+
 
 <script setup>
 import { ref } from 'vue';
@@ -64,7 +66,7 @@ const login = async () => {
       });
     }, 1250);
   } catch (error) {
-    message.value = 'Error en el registro';
+    message.value = 'Error en el inicio de sesión';
     messageClass.value = 'error-message';
   }
 };

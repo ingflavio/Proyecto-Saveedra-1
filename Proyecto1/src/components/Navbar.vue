@@ -25,21 +25,21 @@
           <div class="field is-grouped">
             <p class="control" v-if="!isAuthenticated">
               <router-link class="button buttonNav" 
-                           :style="{ backgroundColor: store.colors.secondary, color: store.colors.accent, fontSize: store.fontSizes.paragraph + 'px' }" 
+                           :style="{ backgroundColor: store.colors.button, color: store.colors.accent, fontSize: store.fontSizes.paragraph + 'px' }" 
                            to="/Login">
                 <span :style="{ fontSize: store.fontSizes.paragraph + 'px' }">Iniciar Sesión</span>
               </router-link>
             </p>
             <p class="control" v-if="!isAuthenticated">
               <router-link class="button buttonNav" 
-                           :style="{ backgroundColor: store.colors.secondary, color: store.colors.accent, fontSize: store.fontSizes.paragraph + 'px' }" 
+                           :style="{ backgroundColor: store.colors.button, color: store.colors.accent, fontSize: store.fontSizes.paragraph + 'px' }" 
                            to="/register">
                 <span :style="{ fontSize: store.fontSizes.paragraph + 'px' }">Registrarte</span>
               </router-link>
             </p>
             <p class="control" v-if="isAuthenticated">
               <router-link class="button buttonNav" 
-                           :style="{ backgroundColor: store.colors.secondary, color: store.colors.accent, fontSize: store.fontSizes.paragraph + 'px' }" 
+                           :style="{ backgroundColor: store.colors.button, color: store.colors.accent, fontSize: store.fontSizes.paragraph + 'px' }" 
                            to="/perfil">
                 <span :style="{ fontSize: store.fontSizes.paragraph + 'px' }">Perfil</span>
               </router-link>
@@ -51,7 +51,6 @@
   </nav>
 </template>
 
-
 <style scoped>
 .navbar-item {
   color: inherit !important; 
@@ -62,7 +61,7 @@
 }
 
 .buttonNav:hover {
-  background-color: var(--accent-color);
+  background-color: lighten(store.colors.button, 10%); /* Ajusta el hover según tu preferencia */
 }
 
 @media only screen and (max-width: 1023px) {

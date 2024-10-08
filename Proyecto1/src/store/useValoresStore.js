@@ -1,13 +1,14 @@
-// store/prStore.js
+// store/useValoresStore.js
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
 export const useValoresStore = defineStore('example', () => {
   // Colores reactivos
   const colors = ref({
-    primary: '#48cae4',
-    secondary: '#b3c4cc',
-    accent: '#919da3',
+    primary: '#48cae4',  // Color Primario/NavBar
+    secondary: '#b3c4cc', // Color Secundario
+    accent: '#919da3',    // Color Para todos los Textos
+    button: '#28a745'     // Color de fondo del botón
   });
 
   // Tamaños de fuente reactivos
