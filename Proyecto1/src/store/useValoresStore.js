@@ -7,7 +7,7 @@ export const useValoresStore = defineStore('example', () => {
   const colors = ref({
     primary: '#48cae4',  // Color Primario/NavBar
     secondary: '#b3c4cc', // Color Secundario
-    accent: '#919da3',    // Color Para todos los Textos
+    accent: 'black',    // Color Para todos los Textos
     button: '#28a745'     // Color de fondo del botón
   });
 

@@ -4,11 +4,24 @@
       <div class="container">
         <div class="columns is-centered">
           <div class="column is-half">
-            <div :style="{ backgroundColor: store.colors.secondary }" class="box">
-              <h1 :style="{ color: store.colors.accent, fontSize: store.fontSizes.title + 'px' }" class="title has-text-centered">Perfil del Usuario</h1>
+            <div
+              :style="{ backgroundColor: store.colors.secondary }"
+              class="box"
+            >
+              <h1
+                :style="{
+                  color: store.colors.accent,
+                  fontSize: store.fontSizes.title + 'px',
+                }"
+                class="title has-text-centered"
+              >
+                Perfil del Usuario
+              </h1>
               <form @submit.prevent="updateProfile">
                 <div class="field">
-                  <label :style="{ color: store.colors.accent }" class="label">Nombre de Usuario</label>
+                  <label :style="{ color: store.colors.accent }" class="label"
+                    >Nombre de Usuario</label
+                  >
                   <div class="control">
                     <input
                       class="input"
@@ -23,7 +36,9 @@
                 </div>
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent }" class="label">Correo Electrónico</label>
+                  <label :style="{ color: store.colors.accent }" class="label"
+                    >Correo Electrónico</label
+                  >
                   <div class="control">
                     <input
                       class="input"
@@ -38,24 +53,42 @@
                 </div>
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent }" class="label">Género</label>
+                  <label :style="{ color: store.colors.accent }" class="label"
+                    >Género</label
+                  >
                   <div class="control controlgender">
                     <label class="radio">
-                      <input type="radio" v-model="profile.gender" value="M" @click="onFieldClick('gender')" />
+                      <input
+                        type="radio"
+                        v-model="profile.gender"
+                        value="M"
+                        @click="onFieldClick('gender')"
+                      />
                       Masculino
                     </label>
                     <label class="radio ml-5">
-                      <input type="radio" v-model="profile.gender" value="F" @click="onFieldClick('gender')" />
+                      <input
+                        type="radio"
+                        v-model="profile.gender"
+                        value="F"
+                        @click="onFieldClick('gender')"
+                      />
                       Femenino
                     </label>
                   </div>
                 </div>
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent }" class="label">Teléfono Celular</label>
+                  <label :style="{ color: store.colors.accent }" class="label"
+                    >Teléfono Celular</label
+                  >
                   <div class="control is-flex">
                     <div class="select">
-                      <select v-model="profile.phonePrefix" @focus="onFieldFocus('phoneNumber')" @click="onFieldClick('phoneNumber')">
+                      <select
+                        v-model="profile.phonePrefix"
+                        @focus="onFieldFocus('phoneNumber')"
+                        @click="onFieldClick('phoneNumber')"
+                      >
                         <option value="0414">0414</option>
                         <option value="0424">0424</option>
                         <option value="0412">0412</option>
@@ -78,10 +111,16 @@
                 </div>
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent }" class="label">Teléfono Fijo</label>
+                  <label :style="{ color: store.colors.accent }" class="label"
+                    >Teléfono Fijo</label
+                  >
                   <div class="control is-flex">
                     <div class="select">
-                      <select v-model="profile.phonePrefixFijo" @focus="onFieldFocus('number')" @click="onFieldClick('number')">
+                      <select
+                        v-model="profile.phonePrefixFijo"
+                        @focus="onFieldFocus('number')"
+                        @click="onFieldClick('number')"
+                      >
                         <option value="0212">0212</option>
                         <option value="0241">0241</option>
                         <option value="0243">0243</option>
@@ -117,7 +156,9 @@
                 </div>
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent }" class="label">Nombre</label>
+                  <label :style="{ color: store.colors.accent }" class="label"
+                    >Nombre</label
+                  >
                   <div class="control">
                     <input
                       class="input"
@@ -132,7 +173,9 @@
                 </div>
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent }" class="label">Apellido</label>
+                  <label :style="{ color: store.colors.accent }" class="label"
+                    >Apellido</label
+                  >
                   <div class="control">
                     <input
                       class="input"
@@ -147,7 +190,9 @@
                 </div>
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent }" class="label">Número De Cédula</label>
+                  <label :style="{ color: store.colors.accent }" class="label"
+                    >Número De Cédula</label
+                  >
                   <div class="control">
                     <input
                       class="input"
@@ -162,21 +207,30 @@
                 </div>
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent }" class="label">Ubicación</label>
+                  <label :style="{ color: store.colors.accent }" class="label"
+                    >Ubicación</label
+                  >
                   <div class="control">
-                    <div id="map"
+                    <div
+                      id="map"
                       @focus="onFieldFocus('ubicacion')"
                       @input="onFieldChange('ubicacion')"
                       @click="onFieldClick('ubicacion')"
                       @keydown="onKeyDown('ubicacion')"
-                      style="height: 400px"></div>
+                      style="height: 400px"
+                    ></div>
                   </div>
                 </div>
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent }" class="label">Ciudad</label>
+                  <label :style="{ color: store.colors.accent }" class="label"
+                    >Ciudad</label
+                  >
                   <div class="control">
-                    <input class="input" type="text" v-model="profile.city" 
+                    <input
+                      class="input"
+                      type="text"
+                      v-model="profile.city"
                       @focus="onFieldFocus('city')"
                       @input="onFieldChange('city')"
                       @click="onFieldClick('city')"
@@ -186,9 +240,14 @@
                 </div>
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent }" class="label">Estado</label>
+                  <label :style="{ color: store.colors.accent }" class="label"
+                    >Estado</label
+                  >
                   <div class="control">
-                    <input class="input" type="text" v-model="profile.state"
+                    <input
+                      class="input"
+                      type="text"
+                      v-model="profile.state"
                       @focus="onFieldFocus('state')"
                       @input="onFieldChange('state')"
                       @click="onFieldClick('state')"
@@ -198,7 +257,9 @@
                 </div>
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent }" class="label">País</label>
+                  <label :style="{ color: store.colors.accent }" class="label"
+                    >País</label
+                  >
                   <div class="control">
                     <input
                       class="input"
@@ -213,7 +274,9 @@
                 </div>
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent }" class="label">Código Postal</label>
+                  <label :style="{ color: store.colors.accent }" class="label"
+                    >Código Postal</label
+                  >
                   <div class="control">
                     <input
                       class="input"
@@ -228,7 +291,9 @@
                 </div>
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent }" class="label">Latitud</label>
+                  <label :style="{ color: store.colors.accent }" class="label"
+                    >Latitud</label
+                  >
                   <div class="control">
                     <input
                       class="input"
@@ -243,7 +308,9 @@
                 </div>
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent }" class="label">Longitud</label>
+                  <label :style="{ color: store.colors.accent }" class="label"
+                    >Longitud</label
+                  >
                   <div class="control">
                     <input
                       class="input"
@@ -258,9 +325,14 @@
                 </div>
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent }" class="label">Offset</label>
+                  <label :style="{ color: store.colors.accent }" class="label"
+                    >Offset</label
+                  >
                   <div class="control">
-                    <input class="input" type="text" v-model="profile.offset" 
+                    <input
+                      class="input"
+                      type="text"
+                      v-model="profile.offset"
                       @input="handleNumber($event, 'offset')"
                       @focus="onFieldFocus('offset')"
                       @click="onFieldClick('offset')"
@@ -270,7 +342,9 @@
                 </div>
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent }" class="label">Descripción</label>
+                  <label :style="{ color: store.colors.accent }" class="label"
+                    >Descripción</label
+                  >
                   <div class="control">
                     <input
                       class="input"
@@ -285,7 +359,9 @@
                 </div>
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent }" class="label">Fecha de Nacimiento</label>
+                  <label :style="{ color: store.colors.accent }" class="label"
+                    >Fecha de Nacimiento</label
+                  >
                   <div class="control">
                     <input
                       class="input"
@@ -301,7 +377,9 @@
                 </div>
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent }" class="label">Edad del Usuario</label>
+                  <label :style="{ color: store.colors.accent }" class="label"
+                    >Edad del Usuario</label
+                  >
                   <div class="control">
                     <input
                       class="input"
@@ -317,7 +395,9 @@
                 </div>
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent }" class="label">Fecha de Registro</label>
+                  <label :style="{ color: store.colors.accent }" class="label"
+                    >Fecha de Registro</label
+                  >
                   <div class="control">
                     <input
                       class="input"
@@ -333,7 +413,9 @@
                 </div>
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent }" class="label">Foto de Perfil</label>
+                  <label :style="{ color: store.colors.accent }" class="label"
+                    >Foto de Perfil</label
+                  >
                   <div class="control">
                     <input
                       class="input"
@@ -346,13 +428,23 @@
                     />
                   </div>
                   <div v-if="profile.profilePicture" class="preview">
-                    <img :src="profile.profilePicture" alt="Vista previa de la foto" />
+                    <img
+                      :src="profile.profilePicture"
+                      alt="Vista previa de la foto"
+                    />
                   </div>
                 </div>
 
                 <div class="field is-grouped is-grouped-centered">
                   <div class="control">
-                    <button :style="{ backgroundColor: store.colors.button, color: store.colors.accent }" class="button is-link" type="submit">
+                    <button
+                      :style="{
+                        backgroundColor: store.colors.button,
+                        color: store.colors.accent,
+                      }"
+                      class="button is-link"
+                      type="submit"
+                    >
                       Actualizar
                     </button>
                   </div>
@@ -362,144 +454,348 @@
             </div>
           </div>
           <div class="column is-half">
-  <div :style="{ backgroundColor: store.colors.secondary }" class="box">
-    <h1 :style="{ color: store.colors.accent, fontSize: store.fontSizes.title + 'px' }" class="title has-text-centered">Registro de Acciones</h1>
-    <table class="table is-fullwidth">
-      <thead>
-        <tr>
-          <th :style="{ color: store.colors.accent }">Título</th>
-          <th :style="{ color: store.colors.accent }">K</th>
-          <th :style="{ color: store.colors.accent }">P</th>
-          <th :style="{ color: store.colors.accent }">H</th>
-          <th :style="{ color: store.colors.accent }">M</th>
-          <th :style="{ color: store.colors.accent }">B</th>
-          <th :style="{ color: store.colors.accent }">Scrolling</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="action in actionTable" :key="action.operator">
-          <td :style="{ color: store.colors.accent }">{{ action.title }}</td>
-          <td :style="{ color: store.colors.accent }">{{ action.K }}</td>
-          <td :style="{ color: store.colors.accent }">{{ action.P }}</td>
-          <td :style="{ color: store.colors.accent }">{{ action.H }}</td>
-          <td :style="{ color: store.colors.accent }">{{ action.M }}</td>
-          <td :style="{ color: store.colors.accent }">{{ action.B }}</td>
-          <td :style="{ color: store.colors.accent }">{{ action.Scrolling }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
+            <div
+              :style="{ backgroundColor: store.colors.secondary }"
+              class="box"
+            >
+              <h1
+                :style="{
+                  color: store.colors.accent,
+                  fontSize: store.fontSizes.title + 'px',
+                }"
+                class="title has-text-centered"
+              >
+                Registro de Acciones
+              </h1>
+              <table class="table is-fullwidth">
+                <thead>
+                  <tr>
+                    <th :style="{ color: store.colors.accent }">Título</th>
+                    <th :style="{ color: store.colors.accent }">K</th>
+                    <th :style="{ color: store.colors.accent }">P</th>
+                    <th :style="{ color: store.colors.accent }">H</th>
+                    <th :style="{ color: store.colors.accent }">M</th>
+                    <th :style="{ color: store.colors.accent }">B</th>
+                    <th :style="{ color: store.colors.accent }">Scrolling</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="action in actionTable" :key="action.operator">
+                    <td :style="{ color: store.colors.accent }">
+                      {{ action.title }}
+                    </td>
+                    <td :style="{ color: store.colors.accent }">
+                      {{ action.K }}
+                    </td>
+                    <td :style="{ color: store.colors.accent }">
+                      {{ action.P }}
+                    </td>
+                    <td :style="{ color: store.colors.accent }">
+                      {{ action.H }}
+                    </td>
+                    <td :style="{ color: store.colors.accent }">
+                      {{ action.M }}
+                    </td>
+                    <td :style="{ color: store.colors.accent }">
+                      {{ action.B }}
+                    </td>
+                    <td :style="{ color: store.colors.accent }">
+                      {{ action.Scrolling }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     </section>
   </div>
 </template>
 
-
-
 <script setup>
-import { ref, onMounted ,onBeforeUnmount} from "vue";
+import { ref, onMounted, onBeforeUnmount } from "vue";
 import axios from "axios";
 import L from "leaflet";
-import { useValoresStore } from '../store/useValoresStore.js'; // Ajusta la ruta según sea necesario
+import { useValoresStore } from "../store/useValoresStore.js"; // Ajusta la ruta según sea necesario
 const store = useValoresStore();
-
 
 const lastScrollTime = ref(0); // Variable para el tiempo del último scroll
 const hasSwitchedToKeyboard = ref({});
 const hasThoughtField = ref({});
-const lastSelectedField = ref(null); 
+const lastSelectedField = ref(null);
 
 const onKeyDown = (field) => {
   if (!hasSwitchedToKeyboard.value[field]) {
-    logAction(field, 'H'); 
-  
-    hasSwitchedToKeyboard.value[field] = true; 
-    hasThoughtField.value[field]=true
+    logAction(field, "H");
+
+    hasSwitchedToKeyboard.value[field] = true;
+    hasThoughtField.value[field] = true;
   }
 };
 
 const onFieldClick = (field) => {
-  logAction(field, 'B'); 
-  logAction(field, 'M'); 
-  hasSwitchedToKeyboard.value[field] = false; 
-  hasThoughtField.value[field]=false
-  lastSelectedField.value = field; 
+  logAction(field, "B");
+  logAction(field, "M");
+  hasSwitchedToKeyboard.value[field] = false;
+  hasThoughtField.value[field] = false;
+  lastSelectedField.value = field;
 };
 
 const onScroll = () => {
   const now = Date.now();
-  if (now - lastScrollTime.value > 2500) { // 2.5 segundos
-    const field = lastSelectedField.value || 'scroll';
-    logAction(field, 'Scrolling');
+  if (now - lastScrollTime.value > 2500) {
+    // 2.5 segundos
+    const field = lastSelectedField.value || "scroll";
+    logAction(field, "Scrolling");
     lastScrollTime.value = now;
   }
 };
 
 onMounted(() => {
   startTime.value = new Date().getTime();
-  const container = document.querySelector('.containerContent');
-  container.addEventListener('scroll', onScroll);
-  document.addEventListener('click', onMouseClick);
-  document.addEventListener('keydown', onKeyDown);
+  const container = document.querySelector(".containerContent");
+  container.addEventListener("scroll", onScroll);
+  document.addEventListener("click", onMouseClick);
+  document.addEventListener("keydown", onKeyDown);
 });
 
 onBeforeUnmount(() => {
-  const container = document.querySelector('.containerContent');
-  container.removeEventListener('scroll', onScroll);
-  document.removeEventListener('click', onMouseClick);
-  document.removeEventListener('keydown', onKeyDown);
-  const mapContainer = document.getElementById('map');
-  mapContainer.removeEventListener('scroll', onScroll);
+  const container = document.querySelector(".containerContent");
+  container.removeEventListener("scroll", onScroll);
+  document.removeEventListener("click", onMouseClick);
+  document.removeEventListener("keydown", onKeyDown);
+  const mapContainer = document.getElementById("map");
+  mapContainer.removeEventListener("scroll", onScroll);
 });
-
-
 
 const handleNumberInput = (event, fieldName) => {
   onFieldChange(fieldName);
   limitPhoneNumber(fieldName);
 };
 
-const handleDate= (event, fieldName) => {
+const handleDate = (event, fieldName) => {
   onFieldChange(fieldName);
   validateDate(fieldName);
-
 };
-
 
 const handleNumber = (event, fieldName) => {
   onFieldChange(fieldName);
   validateNumber(fieldName);
 };
 
-
-
 const actionTable = ref([
-  { operator: 'username', title: 'Nombre de Usuario', K: 0, P: 0, H: 0, M: 0, B: 0, Scrolling: 0 },
-  { operator: 'correo', title: 'Correo Electrónico', K: 0, P: 0, H: 0, M: 0, B: 0, Scrolling: 0 },
-  { operator: 'gender', title: 'Género', K: 0, P: 0, H: 0, M: 0, B: 0, Scrolling: 0 },
-  { operator: 'phoneNumber', title: 'Teléfono Celular', K: 0, P: 0, H: 0, M: 0, B: 0, Scrolling: 0 },
-  { operator: 'number', title: 'Teléfono Fijo', K: 0, P: 0, H: 0, M: 0, B: 0, Scrolling: 0 },
+  {
+    operator: "username",
+    title: "Nombre de Usuario",
+    K: 0,
+    P: 0,
+    H: 0,
+    M: 0,
+    B: 0,
+    Scrolling: 0,
+  },
+  {
+    operator: "correo",
+    title: "Correo Electrónico",
+    K: 0,
+    P: 0,
+    H: 0,
+    M: 0,
+    B: 0,
+    Scrolling: 0,
+  },
+  {
+    operator: "gender",
+    title: "Género",
+    K: 0,
+    P: 0,
+    H: 0,
+    M: 0,
+    B: 0,
+    Scrolling: 0,
+  },
+  {
+    operator: "phoneNumber",
+    title: "Teléfono Celular",
+    K: 0,
+    P: 0,
+    H: 0,
+    M: 0,
+    B: 0,
+    Scrolling: 0,
+  },
+  {
+    operator: "number",
+    title: "Teléfono Fijo",
+    K: 0,
+    P: 0,
+    H: 0,
+    M: 0,
+    B: 0,
+    Scrolling: 0,
+  },
 
-
-  { operator: 'firstName', title: 'Nombre', K: 0, P: 0, H: 0, M: 0, B: 0, Scrolling: 0 },
-  { operator: 'lastName', title: 'Apellido', K: 0, P: 0, H: 0, M: 0, B: 0, Scrolling: 0 },
-  { operator: 'cedula', title: 'Número de Cédula', K: 0, P: 0, H: 0, M: 0, B: 0, Scrolling: 0 },
-  { operator: 'ubicacion', title: 'Ubicacion', K: 0, P: 0, H: 0, M: 0, B: 0, Scrolling: 0 },
-  { operator: 'city', title: 'Ciudad', K: 0, P: 0, H: 0, M: 0, B: 0, Scrolling: 0 },
-  { operator: 'state', title: 'Estado', K: 0, P: 0, H: 0, M: 0, B: 0, Scrolling: 0 },
-  { operator: 'country', title: 'País', K: 0, P: 0, H: 0, M: 0, B: 0, Scrolling: 0 },
-  { operator: 'postcode', title: 'Código Postal', K: 0, P: 0, H: 0, M: 0, B: 0, Scrolling: 0 },
-  { operator: 'latitude', title: 'Latitud', K: 0, P: 0, H: 0, M: 0, B: 0, Scrolling: 0 },
-  { operator: 'longitude', title: 'Longitud', K: 0, P: 0, H: 0, M: 0, B: 0, Scrolling: 0 },
-  { operator: 'offset', title: 'Offset', K: 0, P: 0, H: 0, M: 0, B: 0, Scrolling: 0 },
-  { operator: 'description', title: 'Descripción', K: 0, P: 0, H: 0, M: 0, B: 0, Scrolling: 0 },
-  { operator: 'date', title: 'Fecha', K: 0, P: 0, H: 0, M: 0, B: 0, Scrolling: 0 },
-  { operator: 'ageUser', title: 'Edad del Usuario', K: 0, P: 0, H: 0, M: 0, B: 0, Scrolling: 0 },
-  { operator: 'dateRegister', title: 'Fecha de Registro', K: 0, P: 0, H: 0, M: 0, B: 0, Scrolling: 0 },
-  { operator: 'profilePicture', title: 'Foto de Perfil', K: 0, P: 0, H: 0, M: 0, B: 0, Scrolling: 0 },
+  {
+    operator: "firstName",
+    title: "Nombre",
+    K: 0,
+    P: 0,
+    H: 0,
+    M: 0,
+    B: 0,
+    Scrolling: 0,
+  },
+  {
+    operator: "lastName",
+    title: "Apellido",
+    K: 0,
+    P: 0,
+    H: 0,
+    M: 0,
+    B: 0,
+    Scrolling: 0,
+  },
+  {
+    operator: "cedula",
+    title: "Número de Cédula",
+    K: 0,
+    P: 0,
+    H: 0,
+    M: 0,
+    B: 0,
+    Scrolling: 0,
+  },
+  {
+    operator: "ubicacion",
+    title: "Ubicacion",
+    K: 0,
+    P: 0,
+    H: 0,
+    M: 0,
+    B: 0,
+    Scrolling: 0,
+  },
+  {
+    operator: "city",
+    title: "Ciudad",
+    K: 0,
+    P: 0,
+    H: 0,
+    M: 0,
+    B: 0,
+    Scrolling: 0,
+  },
+  {
+    operator: "state",
+    title: "Estado",
+    K: 0,
+    P: 0,
+    H: 0,
+    M: 0,
+    B: 0,
+    Scrolling: 0,
+  },
+  {
+    operator: "country",
+    title: "País",
+    K: 0,
+    P: 0,
+    H: 0,
+    M: 0,
+    B: 0,
+    Scrolling: 0,
+  },
+  {
+    operator: "postcode",
+    title: "Código Postal",
+    K: 0,
+    P: 0,
+    H: 0,
+    M: 0,
+    B: 0,
+    Scrolling: 0,
+  },
+  {
+    operator: "latitude",
+    title: "Latitud",
+    K: 0,
+    P: 0,
+    H: 0,
+    M: 0,
+    B: 0,
+    Scrolling: 0,
+  },
+  {
+    operator: "longitude",
+    title: "Longitud",
+    K: 0,
+    P: 0,
+    H: 0,
+    M: 0,
+    B: 0,
+    Scrolling: 0,
+  },
+  {
+    operator: "offset",
+    title: "Offset",
+    K: 0,
+    P: 0,
+    H: 0,
+    M: 0,
+    B: 0,
+    Scrolling: 0,
+  },
+  {
+    operator: "description",
+    title: "Descripción",
+    K: 0,
+    P: 0,
+    H: 0,
+    M: 0,
+    B: 0,
+    Scrolling: 0,
+  },
+  {
+    operator: "date",
+    title: "Fecha",
+    K: 0,
+    P: 0,
+    H: 0,
+    M: 0,
+    B: 0,
+    Scrolling: 0,
+  },
+  {
+    operator: "ageUser",
+    title: "Edad del Usuario",
+    K: 0,
+    P: 0,
+    H: 0,
+    M: 0,
+    B: 0,
+    Scrolling: 0,
+  },
+  {
+    operator: "dateRegister",
+    title: "Fecha de Registro",
+    K: 0,
+    P: 0,
+    H: 0,
+    M: 0,
+    B: 0,
+    Scrolling: 0,
+  },
+  {
+    operator: "profilePicture",
+    title: "Foto de Perfil",
+    K: 0,
+    P: 0,
+    H: 0,
+    M: 0,
+    B: 0,
+    Scrolling: 0,
+  },
 ]);
 
 const actionTimes = {
@@ -523,8 +819,8 @@ const calculateTotalTime = () => {
 
 const showSuccessMessage = () => {
   const totalTime = calculateTotalTime();
-  message.value = (`¡Formulario enviado correctamente! Tiempo total transcurrido: ${totalTime} segundos.`);
-  messageClass.value="success-message";
+  message.value = `¡Formulario enviado correctamente! Tiempo total transcurrido: ${totalTime} segundos.`;
+  messageClass.value = "success-message";
 };
 
 const actionLog = ref([]);
@@ -532,50 +828,42 @@ const startTime = ref(null);
 
 const logAction = (field, actionType) => {
   const timestamp = new Date().getTime();
-  
+
   actionLog.value.push({ field, actionType, timestamp });
   updateActionTable(field, actionType); // Asegúrate de que 'field' y 'actionType' se pasen correctamente
 };
 
-
 const updateActionTable = (field, actionType) => {
- 
-  const action = actionTable.value.find(item => item.operator === field);
-  if (action && actionType in action) {  // Validar que el actionType sea una clave válida en la tabla
+  const action = actionTable.value.find((item) => item.operator === field);
+  if (action && actionType in action) {
+    // Validar que el actionType sea una clave válida en la tabla
     action[actionType]++;
- 
   } else {
-    console.error(`No se encontró el campo ${field} o el tipo de acción ${actionType} no es válido en actionTable.`);
+    console.error(
+      `No se encontró el campo ${field} o el tipo de acción ${actionType} no es válido en actionTable.`
+    );
   }
 };
 
-
-
 const onFieldFocus = (field) => {
-  logAction(field, 'P'); 
+  logAction(field, "P");
   lastSelectedField.value = field;
 };
 
 const onMouseClick = () => {
-  logAction('Campo Relacionado', 'B'); 
-  
+  logAction("Campo Relacionado", "B");
 };
-
 
 const onFieldChange = (field) => {
-  logAction(field, 'K'); 
+  logAction(field, "K");
 };
 
-
-
-
 const profile = ref({
-  
   username: "",
   correo: "",
   phonePrefixFijo: "0241",
   phonePrefix: "0414",
-  phoneNumber: "",  
+  phoneNumber: "",
   number: "",
 
   cedula: "",
@@ -593,7 +881,7 @@ const profile = ref({
   date: "",
   ageUser: "",
   dateRegister: "",
-  profilePicture: ""
+  profilePicture: "",
 });
 
 const message = ref("");
@@ -601,12 +889,8 @@ const messageClass = ref("");
 const map = ref(null);
 
 const limitPhoneNumber = (field) => {
-  profile.value[field] = profile.value[field].replace(/\D/g, "").slice(0,7);
-
-
+  profile.value[field] = profile.value[field].replace(/\D/g, "").slice(0, 7);
 };
-
-
 
 const getProfile = async () => {
   try {
@@ -620,7 +904,7 @@ const getProfile = async () => {
       },
     });
     profile.value = response.data;
-    profile.value.dateRegister = response.data.usuarioRegistro; 
+    profile.value.dateRegister = response.data.usuarioRegistro;
     if (map.value) {
       const { latitude, longitude } = profile.value;
       map.value.setView([latitude, longitude], 13);
@@ -636,7 +920,11 @@ const getProfile = async () => {
 
 const updateProfile = async () => {
   const estimatedTime = calculateTotalTime();
-  console.log('Tiempo estimado para completar el formulario:', estimatedTime, 'segundos');
+  console.log(
+    "Tiempo estimado para completar el formulario:",
+    estimatedTime,
+    "segundos"
+  );
 
   try {
     const token = localStorage.getItem("token");
@@ -665,8 +953,6 @@ const updateProfile = async () => {
       }
     );
     showSuccessMessage();
-
-   
   } catch (error) {
     console.error("Error al actualizar el perfil:", error);
     message.value =
@@ -675,12 +961,8 @@ const updateProfile = async () => {
   }
 };
 
-
-
 const validateNumber = (field) => {
   profile.value[field] = profile.value[field].replace(/\D/g, "");
-
-  
 };
 
 const validateDate = (field) => {
@@ -691,7 +973,7 @@ const validateDate = (field) => {
   } else {
     message.value = "";
     messageClass.value = "";
-    if (field === 'date') {
+    if (field === "date") {
       profile.value.ageUser = calculateAge(profile.value[field]);
     }
   }
@@ -699,16 +981,19 @@ const validateDate = (field) => {
 
 const calculateAge = (birthDate) => {
   const today = new Date();
-  const birthDateParts = birthDate.split('/');
+  const birthDateParts = birthDate.split("/");
   const birthDay = parseInt(birthDateParts[0], 10);
-  const birthMonth = parseInt(birthDateParts[1], 10) - 1; 
+  const birthMonth = parseInt(birthDateParts[1], 10) - 1;
   const birthYear = parseInt(birthDateParts[2], 10);
 
   const birthDateObj = new Date(birthYear, birthMonth, birthDay);
   let age = today.getFullYear() - birthDateObj.getFullYear();
   const monthDifference = today.getMonth() - birthDateObj.getMonth();
 
-  if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDateObj.getDate())) {
+  if (
+    monthDifference < 0 ||
+    (monthDifference === 0 && today.getDate() < birthDateObj.getDate())
+  ) {
     age--;
   }
 
@@ -717,7 +1002,7 @@ const calculateAge = (birthDate) => {
 
 const handleFileUpload = (event) => {
   const file = event.target.files[0];
-  const validExtensions = ['image/jpeg', 'image/png', 'image/jpg'];
+  const validExtensions = ["image/jpeg", "image/png", "image/jpg"];
 
   if (file && validExtensions.includes(file.type)) {
     const reader = new FileReader();
@@ -728,7 +1013,8 @@ const handleFileUpload = (event) => {
     message.value = "";
     messageClass.value = "";
   } else {
-    message.value = "Formato de archivo no válido. Solo se permiten archivos .jpg, .jpeg, y .png.";
+    message.value =
+      "Formato de archivo no válido. Solo se permiten archivos .jpg, .jpeg, y .png.";
     messageClass.value = "error-message";
   }
 };
@@ -765,7 +1051,7 @@ onMounted(() => {
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap contributors",
   }).addTo(map.value);
-   map.value.on("click", async (e) => {
+  map.value.on("click", async (e) => {
     const { lat, lng } = e.latlng;
     profile.value.latitude = lat;
     profile.value.longitude = lng;
@@ -773,11 +1059,10 @@ onMounted(() => {
     await reverseGeocode(lat, lng);
   });
 
-  const mapContainer = document.getElementById('map');
-  mapContainer.addEventListener('scroll', onScroll);
+  const mapContainer = document.getElementById("map");
+  mapContainer.addEventListener("scroll", onScroll);
 
   getProfile();
-
 });
 </script>
 
@@ -804,11 +1089,11 @@ onMounted(() => {
   padding: 20px;
   position: relative;
   z-index: 1;
-  background-color: rgba(145, 157, 163, 0.9); 
+  background-color: rgba(145, 157, 163, 0.9);
 }
 .title {
   margin-bottom: 20px;
-  color: #000; 
+  color: #000;
 }
 .footer {
   padding: 1px !important;

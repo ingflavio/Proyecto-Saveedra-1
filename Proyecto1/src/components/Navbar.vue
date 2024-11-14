@@ -15,7 +15,10 @@
                      to="/"> Inicio </router-link>
         <router-link class="navbar-item" 
                      :style="{ color: store.colors.accent, fontSize: store.fontSizes.paragraph + 'px' }" 
-                     to="#"> Galería </router-link>
+                     to="/galeria"> Galería </router-link>
+        <router-link class="navbar-item" 
+                     :style="{ color: store.colors.accent, fontSize: store.fontSizes.paragraph + 'px' }" 
+                     to="/politicas"> Politicas </router-link>
         <router-link class="navbar-item" 
                      :style="{ color: store.colors.accent, fontSize: store.fontSizes.paragraph + 'px' }" 
                      to="/colores"> Colores </router-link>
@@ -58,10 +61,6 @@
 
 .buttonNav {
   transition: background-color 0.3s; 
-}
-
-.buttonNav:hover {
-  background-color: lighten(store.colors.button, 10%); /* Ajusta el hover según tu preferencia */
 }
 
 @media only screen and (max-width: 1023px) {

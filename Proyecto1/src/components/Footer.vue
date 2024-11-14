@@ -1,13 +1,30 @@
 <template>
   <footer :style="{ backgroundColor: store.colors.secondary }" class="footer">
-    <div :style="{ color: store.colors.accent }" class="content has-text-centered">
+    <div
+      :style="{ color: store.colors.accent }"
+      class="content has-text-centered"
+    >
+      <router-link
+        :style="{
+          color: store.colors.accent,
+          fontSize: store.fontSizes.paragraph + 'px',
+        }"
+        to="/politicasdeprivacidad"
+      >
+        Politicas de Privacidad
+      </router-link>
+    </div>
+    <div
+      :style="{ color: store.colors.accent }"
+      class="content has-text-centered"
+    >
       <strong>Creador por:</strong> <span>Flavio Franchich</span>
     </div>
   </footer>
 </template>
 
 <script setup>
-import { useValoresStore } from '../store/useValoresStore.js';
+import { useValoresStore } from "../store/useValoresStore.js";
 
 const store = useValoresStore();
 </script>
@@ -15,6 +32,9 @@ const store = useValoresStore();
 <style scoped>
 .footer {
   color: black; /* Color por defecto si no se establece desde el store */
-  padding: var(--bulma-footer-padding, 20px); /* Usar la variable si está definida */
+  padding: var(
+    --bulma-footer-padding,
+    20px
+  ); /* Usar la variable si está definida */
 }
 </style>

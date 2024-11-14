@@ -16,7 +16,7 @@
               type="number"
               :value="value"
               @input="updateFontSize(key, $event.target.value)"
-              :style="{ color: colors.accent }"
+              :style="{ backgroundColor: colors.secondary, color: colors.accent }"
             />
           </div>
         </div>
@@ -56,42 +56,3 @@ const updateColor = (key, value) => {
   store.setColor(key, value); // Actualiza el store
 };
 </script>
-
-<style scoped>
-.colores-container {
-  position: relative;
-  padding-top: 40px;
-  min-height: calc(100vh - 90px - 30px);
-  padding-bottom: 40px;
-  background-image: linear-gradient(
-      to bottom,
-      rgba(46, 49, 53, 0.212),
-      rgba(0, 0, 0, 0.87)
-    ),
-    url("../../public/banner.jpg");
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.box {
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 500px;
-  margin: auto;
-}
-
-.title {
-  margin-top: 20px;
-  text-align: center;
-}
-
-.field {
-  margin-bottom: 15px;
-}
-</style>
