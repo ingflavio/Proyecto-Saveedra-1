@@ -5,8 +5,7 @@ import Register from '../views/Register.vue';
 import Inciar from '../views/IniciarSesion.vue'
 import perfil from '../components/perfil.vue';
 import Colores from '../views/colores.vue';
-import Galeria from '../views/galeria.vue';
-import Politicas from '@/views/politicas.vue';
+import Multimedia from '../views/multimedia.vue';
 import PoliticasDePrivacidad from '@/views/politicasDePrivacidad.vue';
 
 const routes = [
@@ -14,8 +13,7 @@ const routes = [
   {path: '/register', component: Register }, 
   {path: '/Login', component: Inciar},
   {path: '/Perfil', component: perfil},
-  {path: '/galeria', component: Galeria},
-  {path: '/politicas', component: Politicas},
+  {path: '/multimedia', component: Multimedia},
   {path: '/politicasdeprivacidad', component: PoliticasDePrivacidad},
   {path: '/Colores', component: Colores}
 

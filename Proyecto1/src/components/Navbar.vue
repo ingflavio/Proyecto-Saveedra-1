@@ -15,10 +15,7 @@
                      to="/"> Inicio </router-link>
         <router-link class="navbar-item" 
                      :style="{ color: store.colors.accent, fontSize: store.fontSizes.paragraph + 'px' }" 
-                     to="/galeria"> Galería </router-link>
-        <router-link class="navbar-item" 
-                     :style="{ color: store.colors.accent, fontSize: store.fontSizes.paragraph + 'px' }" 
-                     to="/politicas"> Politicas </router-link>
+                     to="/multimedia"> Multimedia </router-link>
         <router-link class="navbar-item" 
                      :style="{ color: store.colors.accent, fontSize: store.fontSizes.paragraph + 'px' }" 
                      to="/colores"> Colores </router-link>

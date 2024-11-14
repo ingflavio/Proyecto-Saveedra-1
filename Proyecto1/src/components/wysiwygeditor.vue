@@ -1,10 +1,4 @@
 <template>
-  <div class="colores-container">
-    <h1
-      class="title"
-      :style="{ color: colors.accent, fontSize: fontSizes.title + 'px' }"
-    >
-    </h1>
     <div class="box" :style="{ backgroundColor: 'white' }">
       <h2
         class="subtitle"
@@ -15,7 +9,6 @@
       <div ref="editorContainer" class="quill-editor"></div>
     </div>
     <div></div>
-  </div>
 </template>
 
 <script setup>

@@ -1,34 +1,66 @@
 <template>
   <div class="galeria">
     <div class="galeria__Container">
-      <div :style="{ backgroundColor: store.colors.secondary, color: colors.accent }" class="galeriaInput">
-        <label for="fileType">Tipo de Archivo:</label>
+      <div
+        :style="{
+          backgroundColor: store.colors.secondary,
+          color: colors.accent,
+        }"
+        class="galeriaInput"
+      >
+        <label for="fileType">Tipo de Accion:</label>
         <select v-model="fileType" @change="resetInput">
           <option value="image">Imagen</option>
           <option value="audio">Audio</option>
           <option value="video">Video</option>
+          <option value="privacy">Privacidad</option>
         </select>
+        <QuillEditor v-if="fileType === 'privacy'" :content="policyContent" @contentUpdated="updatePolicyContent" />
         <input
+          v-if="fileType !== 'privacy'"
           type="file"
-          :accept="acceptedTypes"
-          :multiple="fileType !== 'video'"
-          @change="handleFiles"
+          @change="onFileChange"
+          ref="galeriaInput"
+          accept="image/*,video/*,audio/*"
         />
-        <p>Nombres de archivos subidos:</p><br>
+
         <ul>
           <li v-for="file in fileNames" :key="file">{{ file }}</li>
         </ul>
       </div>
-      <div :style="{ backgroundColor: store.colors.secondary, color: colors.accent }" class="galeriaPrevia">
+      <div
+        :style="{
+          backgroundColor: store.colors.secondary,
+          color: colors.accent,
+        }"
+        class="galeriaPrevia"
+      >
         <h3>Vista Previa</h3>
         <div v-if="fileType === 'image'">
-          <img v-for="url in previewUrls" :src="url" :key="url" alt="preview" width="100" />
+          <img
+            v-for="url in previewUrls"
+            :src="url"
+            :key="url"
+            alt="preview"
+            width="100"
+          />
         </div>
         <div v-if="fileType === 'audio'">
-          <audio v-for="url in previewUrls" :src="url" :key="url" controls></audio>
+          <audio
+            v-for="url in previewUrls"
+            :src="url"
+            :key="url"
+            controls
+          ></audio>
         </div>
         <div v-if="fileType === 'video'">
-          <video v-for="url in previewUrls" :src="url" :key="url" controls width="200"></video>
+          <video
+            v-for="url in previewUrls"
+            :src="url"
+            :key="url"
+            controls
+            width="200"
+          ></video>
         </div>
       </div>
     </div>
@@ -38,8 +70,22 @@
 <script setup>
 import { ref, computed, watch } from "vue";
 import { useValoresStore } from "../store/useValoresStore.js";
+import QuillEditor from '../components/wysiwygeditor.vue'
+import { usePolicyStore } from '../store/usePolicyStore.js';
 
 const store = useValoresStore();
+
+// Importa el store de Pinia
+const policyStore = usePolicyStore();
+
+// Crea una propiedad reactiva para el contenido del editor
+const policyContent = ref(policyStore.privacyPolicy);
+
+// Función para actualizar el contenido en el store cuando se modifique en el editor
+const updatePolicyContent = (newContent) => {
+  console.log(newContent);  // Verifica si las etiquetas de alineación están presentes
+  policyStore.setPrivacyPolicy(newContent);
+};
 
 const fileType = ref("image");
 const files = ref([]);
@@ -117,3 +163,9 @@ watch(fileType, () => {
   previewUrls.value = storedFiles[fileType.value] || [];
 });
 </script>
+
+<style>
+div.box{
+  margin: 0 !important
+}
+</style>
