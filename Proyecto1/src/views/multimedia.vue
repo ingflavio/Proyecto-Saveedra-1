@@ -9,7 +9,7 @@
         class="galeriaInput"
       >
         <label for="fileType">Tipo de Acción:</label>
-        <select v-model="fileType" @change="resetInput">
+        <select v-model="fileType">
           <option value="image">Imagen</option>
           <option value="audio">Audio</option>
           <option value="video">Video</option>
@@ -107,12 +107,6 @@ const acceptedTypes = computed(() => {
   return "*/*";
 });
 
-function resetInput() {
-  files.value = [];
-  previewUrls.value = [];
-  fileNames.value = [];
-}
-
 function handleFiles(event) {
   const selectedFiles = Array.from(event.target.files);
 
@@ -153,13 +147,24 @@ function handleFiles(event) {
 }
 
 function saveToLocalStorage() {
+  // Obtén los archivos almacenados en localStorage (si existen)
   const storedFiles = JSON.parse(localStorage.getItem("uploadedFiles")) || {};
-  storedFiles[fileType.value] = previewUrls.value;
 
+  // Si ya existen archivos del mismo tipo, los concatenamos con los nuevos archivos
+  const existingFiles = storedFiles[fileType.value] || [];
+
+  // Filtra los archivos ya existentes para evitar duplicados
+  const newFiles = previewUrls.value.filter(url => !existingFiles.includes(url));
+
+  // Agregar los nuevos archivos al arreglo de archivos existentes
+  storedFiles[fileType.value] = [...existingFiles, ...newFiles];
+
+  // Si hay un video, guarda el primer video
   if (videoUrl.value) {
     storedFiles.video = [videoUrl.value];
   }
 
+  // Guarda los archivos actualizados en localStorage
   localStorage.setItem("uploadedFiles", JSON.stringify(storedFiles));
 }
 

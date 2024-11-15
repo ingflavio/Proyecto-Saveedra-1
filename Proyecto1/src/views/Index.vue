@@ -1,9 +1,26 @@
 <template>
-  <div class="galeria" :style="{ display: 'flex', alignItems: 'center', flexDirection: 'column', color: 'white' }">
-    <!-- Swiper for Images -->
-    <swiper class="mySwiper" :slides-per-view="1" space-between="10">
-      <swiper-slide v-for="(url, index) in previewUrls" :key="index">
-        <img :src="url" alt="Image Preview" class="slide-content" v-if="fileType === 'image'" />
+  <div class="galeria"></div>
+  <div :style="{ display: 'flex', alignItems: 'center', flexDirection: 'column', color: 'white' }">
+    <!-- Swiper for Cards -->
+    <swiper
+    :slidesPerView="3"
+    :spaceBetween="30"
+    :loop="true"
+    :navigation="true"
+    :modules="modules"
+    class="mySwiper"
+  >
+      <swiper-slide v-for="(url, index) in previewUrls" :key="index" class="slide-card">
+        <div class="card">
+          <div class="card-image">
+            <figure class="image is-4by3">
+              <img :src="url" alt="Image Preview" v-if="fileType === 'image'" />
+            </figure>
+          </div>
+          <div class="card-content">
+                <h1 class="titleimage has-text-white-bis	">Imagen {{index+1}}</h1>
+          </div>
+        </div>
       </swiper-slide>
     </swiper>
 
@@ -15,16 +32,19 @@
 
     <!-- Audio Section -->
     <div v-if="audioUrls.length" class="audio-container">
-      <h3 >Audios:</h3>
+      <h3>Audios:</h3>
       <audio v-for="(url, index) in audioUrls" :key="index" :src="url" controls></audio>
     </div>
   </div>
 </template>
 
 <script>
-import { Swiper, SwiperSlide } from 'swiper/vue';
-import 'swiper/css';
-import { ref, onMounted } from 'vue';
+import { Swiper, SwiperSlide } from "swiper/vue";
+import "swiper/css";
+import "swiper/css/navigation";
+
+import {Navigation } from 'swiper/modules';
+import { ref, onMounted } from "vue";
 
 export default {
   components: {
@@ -38,7 +58,8 @@ export default {
     const fileType = ref("image");
 
     onMounted(() => {
-      const storedFiles = JSON.parse(localStorage.getItem("uploadedFiles")) || {};
+      const storedFiles =
+        JSON.parse(localStorage.getItem("uploadedFiles")) || {};
       if (storedFiles.image) {
         previewUrls.value = storedFiles.image;
         fileType.value = "image";
@@ -56,6 +77,7 @@ export default {
       audioUrls,
       videoUrl,
       fileType,
+      modules: [Navigation]
     };
   },
 };
@@ -72,14 +94,7 @@ export default {
   align-items: center;
   justify-content: center;
   height: 300px;
-}
-
-.slide-content {
-  max-width: 100%;
-  max-height: 300px;
-  width: auto;
-  height: 100%;
-  object-fit: contain;
+  background-color: transparent;
 }
 
 .video-container {
@@ -89,4 +104,22 @@ export default {
 .audio-container {
   margin-top: 20px;
 }
+
+.slide-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.card {
+  width: 400px !important;
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 </style>

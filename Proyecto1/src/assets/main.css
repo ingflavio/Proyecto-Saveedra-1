@@ -44,14 +44,6 @@ body {
   background-position: center;
 }
 
-.sliderIndex {
-  padding: 50px;
-}
-
-.slide-content {
-  padding: 20px;
-}
-
 .colores-container {
   position: relative;
   padding-top: 40px;
@@ -146,4 +138,8 @@ flex-direction: column;
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+footer.footer{
+  padding: 10px;
 }
