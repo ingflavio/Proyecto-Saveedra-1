@@ -15,11 +15,13 @@
           <option value="video">Video</option>
           <option value="privacy">Privacidad</option>
         </select>
+
         <QuillEditor
           v-if="fileType === 'privacy'"
           :content="policyContent"
           @contentUpdated="updatePolicyContent"
         />
+        
         <input
           v-if="fileType !== 'privacy'"
           type="file"
@@ -27,12 +29,22 @@
           :multiple="fileType !== 'video'"
           @change="handleFiles"
         />
+
+        <!-- Input para subtítulos -->
+        <input
+          v-if="fileType === 'video'"
+          type="file"
+          accept=".vtt"
+          @change="handleSubtitle"
+          placeholder="Subtítulos opcionales"
+        />
+
         <p v-if="fileType !== 'privacy'">Nombres de archivos subidos:</p>
-        <br />
         <ul>
           <li v-for="file in fileNames" :key="file">{{ file }}</li>
         </ul>
       </div>
+
       <div v-if="fileType !== 'privacy'"
         :style="{
           backgroundColor: store.colors.secondary,
@@ -65,7 +77,10 @@
             :key="url"
             controls
             width="200"
-          ></video>
+          >
+            <!-- Inserta el track para subtítulos si está disponible -->
+            <track v-if="subtitleUrl" :src="subtitleUrl" kind="subtitles" srclang="es" label="Español" default />
+          </video>
         </div>
       </div>
     </div>
@@ -75,20 +90,13 @@
 <script setup>
 import { ref, computed, watch } from "vue";
 import { useValoresStore } from "../store/useValoresStore.js";
-import QuillEditor from '../components/wysiwygeditor.vue'
+import QuillEditor from '../components/wysiwygeditor.vue';
 import { usePolicyStore } from '../store/usePolicyStore.js';
 
 const store = useValoresStore();
-
-// Importa el store de Pinia
 const policyStore = usePolicyStore();
-
-// Crea una propiedad reactiva para el contenido del editor
 const policyContent = ref(policyStore.privacyPolicy);
-
-// Función para actualizar el contenido en el store cuando se modifique en el editor
 const updatePolicyContent = (newContent) => {
-  console.log(newContent);  // Verifica si las etiquetas de alineación están presentes
   policyStore.setPrivacyPolicy(newContent);
 };
 
@@ -97,6 +105,7 @@ const files = ref([]);
 const fileNames = ref([]);
 const previewUrls = ref([]);
 const videoUrl = ref(null);
+const subtitleUrl = ref(null); // URL del archivo de subtítulos
 
 const colors = computed(() => store.colors);
 
@@ -146,33 +155,37 @@ function handleFiles(event) {
   }
 }
 
+function handleSubtitle(event) {
+  const subtitleFile = event.target.files[0];
+  if (subtitleFile) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      subtitleUrl.value = e.target.result;
+      localStorage.setItem("subtitle", subtitleUrl.value);
+    };
+    reader.readAsDataURL(subtitleFile);
+  }
+}
+
 function saveToLocalStorage() {
-  // Obtén los archivos almacenados en localStorage (si existen)
   const storedFiles = JSON.parse(localStorage.getItem("uploadedFiles")) || {};
-
-  // Si ya existen archivos del mismo tipo, los concatenamos con los nuevos archivos
   const existingFiles = storedFiles[fileType.value] || [];
-
-  // Filtra los archivos ya existentes para evitar duplicados
   const newFiles = previewUrls.value.filter(url => !existingFiles.includes(url));
-
-  // Agregar los nuevos archivos al arreglo de archivos existentes
   storedFiles[fileType.value] = [...existingFiles, ...newFiles];
 
-  // Si hay un video, guarda el primer video
   if (videoUrl.value) {
     storedFiles.video = [videoUrl.value];
   }
-
-  // Guarda los archivos actualizados en localStorage
   localStorage.setItem("uploadedFiles", JSON.stringify(storedFiles));
 }
 
 watch(fileType, () => {
   const storedFiles = JSON.parse(localStorage.getItem("uploadedFiles")) || {};
   previewUrls.value = storedFiles[fileType.value] || [];
+  subtitleUrl.value = localStorage.getItem("subtitle"); // Carga los subtítulos guardados
 });
 </script>
+
 
 <style>
 div.box{

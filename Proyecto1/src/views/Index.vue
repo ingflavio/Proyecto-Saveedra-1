@@ -1,16 +1,26 @@
 <template>
   <div class="galeria"></div>
-  <div :style="{ display: 'flex', alignItems: 'center', flexDirection: 'column', color: 'white' }">
-    <!-- Swiper for Cards -->
-    <swiper
-    :slidesPerView="3"
-    :spaceBetween="30"
-    :loop="true"
-    :navigation="true"
-    :modules="modules"
-    class="mySwiper"
+  <div
+    :style="{
+      display: 'flex',
+      alignItems: 'center',
+      flexDirection: 'column',
+      color: 'white',
+    }"
   >
-      <swiper-slide v-for="(url, index) in previewUrls" :key="index" class="slide-card">
+    <swiper
+      :slidesPerView="3"
+      :spaceBetween="30"
+      :loop="true"
+      :navigation="true"
+      :modules="modules"
+      class="mySwiper"
+    >
+      <swiper-slide
+        v-for="(url, index) in previewUrls"
+        :key="index"
+        class="slide-card"
+      >
         <div class="card">
           <div class="card-image">
             <figure class="image is-4by3">
@@ -18,7 +28,9 @@
             </figure>
           </div>
           <div class="card-content">
-                <h1 class="titleimage has-text-white-bis	">Imagen {{index+1}}</h1>
+            <h1 class="titleimage has-text-white-bis">
+              Imagen {{ index + 1 }}
+            </h1>
           </div>
         </div>
       </swiper-slide>
@@ -27,13 +39,28 @@
     <!-- Video Section -->
     <div v-if="videoUrl" class="video-container">
       <h3>Video:</h3>
-      <video :src="videoUrl" controls width="500"></video>
+      <video :src="videoUrl" controls width="500">
+        <!-- Track para subtítulos si están disponibles -->
+        <track
+          v-if="subtitlesUrl"
+          :src="subtitlesUrl"
+          kind="subtitles"
+          srclang="es"
+          label="Español"
+          default
+        />
+      </video>
     </div>
 
     <!-- Audio Section -->
     <div v-if="audioUrls.length" class="audio-container">
       <h3>Audios:</h3>
-      <audio v-for="(url, index) in audioUrls" :key="index" :src="url" controls></audio>
+      <audio
+        v-for="(url, index) in audioUrls"
+        :key="index"
+        :src="url"
+        controls
+      ></audio>
     </div>
   </div>
 </template>
@@ -42,8 +69,7 @@
 import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import "swiper/css/navigation";
-
-import {Navigation } from 'swiper/modules';
+import { Navigation } from "swiper/modules";
 import { ref, onMounted } from "vue";
 
 export default {
@@ -55,11 +81,14 @@ export default {
     const previewUrls = ref([]);
     const audioUrls = ref([]);
     const videoUrl = ref(null);
+    const subtitlesUrl = ref(null); // Para los subtítulos
     const fileType = ref("image");
 
     onMounted(() => {
+      // Recuperar los archivos desde localStorage
       const storedFiles =
         JSON.parse(localStorage.getItem("uploadedFiles")) || {};
+
       if (storedFiles.image) {
         previewUrls.value = storedFiles.image;
         fileType.value = "image";
@@ -70,14 +99,21 @@ export default {
       if (storedFiles.video) {
         videoUrl.value = storedFiles.video[0];
       }
+
+      // Recuperar subtítulos desde localStorage
+      const storedSubtitle = localStorage.getItem("subtitle");
+      if (storedSubtitle) {
+        subtitlesUrl.value = storedSubtitle;
+      }
     });
 
     return {
       previewUrls,
       audioUrls,
       videoUrl,
+      subtitlesUrl,
       fileType,
-      modules: [Navigation]
+      modules: [Navigation],
     };
   },
 };
@@ -121,5 +157,4 @@ export default {
   height: 100%;
   object-fit: contain;
 }
-
 </style>
