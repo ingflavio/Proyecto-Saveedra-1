@@ -1,5 +1,19 @@
 <template>
-  <div class="galeria"></div>
+  <div class="galeria">
+    <!-- Video Section -->
+    <div v-if="videoUrl" class="video-container">
+      <video :src="videoUrl" controls width="500">
+        <track
+          v-if="subtitlesUrl"
+          :src="subtitlesUrl"
+          kind="subtitles"
+          srclang="es"
+          label="Español"
+          default
+        />
+      </video>
+    </div>
+  </div>
   <div
     :style="{
       display: 'flex',
@@ -27,30 +41,9 @@
               <img :src="url" alt="Image Preview" v-if="fileType === 'image'" />
             </figure>
           </div>
-          <div class="card-content">
-            <h1 class="titleimage has-text-white-bis">
-              Imagen {{ index + 1 }}
-            </h1>
-          </div>
         </div>
       </swiper-slide>
     </swiper>
-
-    <!-- Video Section -->
-    <div v-if="videoUrl" class="video-container">
-      <h3>Video:</h3>
-      <video :src="videoUrl" controls width="500">
-        <!-- Track para subtítulos si están disponibles -->
-        <track
-          v-if="subtitlesUrl"
-          :src="subtitlesUrl"
-          kind="subtitles"
-          srclang="es"
-          label="Español"
-          default
-        />
-      </video>
-    </div>
 
     <!-- Audio Section -->
     <div v-if="audioUrls.length" class="audio-container">
@@ -61,6 +54,12 @@
         :src="url"
         controls
       ></audio>
+    </div>
+    <!-- PDF Section -->
+    <div v-if="pdfUrl" class="pdf-container">
+      <a :href="pdfUrl" target="_blank" class="pdf-link">
+        <img src="../../public/pdf.png" alt="PDF Logo" class="pdf-logo" />
+      </a>
     </div>
   </div>
 </template>
@@ -81,7 +80,8 @@ export default {
     const previewUrls = ref([]);
     const audioUrls = ref([]);
     const videoUrl = ref(null);
-    const subtitlesUrl = ref(null); // Para los subtítulos
+    const subtitlesUrl = ref(null);
+    const pdfUrl = ref(null);
     const fileType = ref("image");
 
     onMounted(() => {
@@ -99,6 +99,11 @@ export default {
       if (storedFiles.video) {
         videoUrl.value = storedFiles.video[0];
       }
+      if (storedFiles.pdf) {
+        pdfUrl.value = storedFiles.pdf[0]; // Recuperar el archivo PDF
+        console.log(pdfUrl.value);
+        
+      }
 
       // Recuperar subtítulos desde localStorage
       const storedSubtitle = localStorage.getItem("subtitle");
@@ -106,12 +111,12 @@ export default {
         subtitlesUrl.value = storedSubtitle;
       }
     });
-
     return {
       previewUrls,
       audioUrls,
       videoUrl,
       subtitlesUrl,
+      pdfUrl,
       fileType,
       modules: [Navigation],
     };
