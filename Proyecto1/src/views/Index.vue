@@ -55,12 +55,6 @@
         controls
       ></audio>
     </div>
-    <!-- PDF Section -->
-    <div v-if="pdfUrl" class="pdf-container">
-      <a :href="pdfUrl" target="_blank" class="pdf-link">
-        <img src="../../public/pdf.png" alt="PDF Logo" class="pdf-logo" />
-      </a>
-    </div>
   </div>
 </template>
 
@@ -70,6 +64,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import { ref, onMounted } from "vue";
+import {getStoredFiles, getSubtitle } from '../../Backend/yop/src/import/importFiles';
 
 export default {
   components: {
@@ -85,9 +80,7 @@ export default {
     const fileType = ref("image");
 
     onMounted(() => {
-      // Recuperar los archivos desde localStorage
-      const storedFiles =
-        JSON.parse(localStorage.getItem("uploadedFiles")) || {};
+      const storedFiles = getStoredFiles();
 
       if (storedFiles.image) {
         previewUrls.value = storedFiles.image;
@@ -100,17 +93,15 @@ export default {
         videoUrl.value = storedFiles.video[0];
       }
       if (storedFiles.pdf) {
-        pdfUrl.value = storedFiles.pdf[0]; // Recuperar el archivo PDF
-        console.log(pdfUrl.value);
-        
+        pdfUrl.value = storedFiles.pdf[0];
       }
 
-      // Recuperar subtítulos desde localStorage
-      const storedSubtitle = localStorage.getItem("subtitle");
+      const storedSubtitle = getSubtitle();
       if (storedSubtitle) {
         subtitlesUrl.value = storedSubtitle;
       }
     });
+
     return {
       previewUrls,
       audioUrls,
@@ -123,6 +114,7 @@ export default {
   },
 };
 </script>
+
 
 <style scoped>
 .mySwiper {
