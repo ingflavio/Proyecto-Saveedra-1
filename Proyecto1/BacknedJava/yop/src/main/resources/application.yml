@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: yop
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/Interfaces
+    username: root
+    password: flavio2000
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+
+
+springdoc:
+  swagger-ui:
+    path: /swagger.html
+
+upload:
+  path: C:/Users/flavio/Desktop/Proyecto-Saveedra-1-main/Proyecto-Saveedra-1/Proyecto1/Tipografias
+
+
+my.key.private: jaA0eUlWaOse2CuBBSLscdumyBJBt6Em7wCGWtwkfMY
+my.user.private: Auth
+

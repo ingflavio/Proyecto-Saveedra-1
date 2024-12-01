@@ -53,30 +53,29 @@
                 </div>
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent }" class="label"
-                    >Género</label
-                  >
-                  <div class="control controlgender">
-                    <label class="radio">
-                      <input
-                        type="radio"
-                        v-model="profile.gender"
-                        value="M"
-                        @click="onFieldClick('gender')"
-                      />
-                      Masculino
-                    </label>
-                    <label class="radio ml-5">
-                      <input
-                        type="radio"
-                        v-model="profile.gender"
-                        value="F"
-                        @click="onFieldClick('gender')"
-                      />
-                      Femenino
-                    </label>
-                  </div>
+                <label :style="{ color: store.colors.accent }" class="label">Género</label>
+                <div class="control controlgender">
+                  <label class="radio">
+                    <input
+                      type="radio"
+                      v-model="profile.gender"
+                      value="M"
+                      @click="onFieldClick('gender')"
+                    />
+                    <label :style="{ color: store.colors.accent }"> Masculino</label>
+                  </label>
+                  <label class="radio ml-5">
+                    <input
+                      type="radio"
+                      v-model="profile.gender"
+                      value="F"
+                      @click="onFieldClick('gender')"
+                    />
+                    <label :style="{ color: store.colors.accent }"> Femenino</label>
+                  </label>
                 </div>
+              </div>
+
 
                 <div class="field">
                   <label :style="{ color: store.colors.accent }" class="label"
@@ -238,6 +237,26 @@
                     />
                   </div>
                 </div>
+
+                <div class="field">
+                  <label :style="{ color: store.colors.accent }" class="label"
+                    >Calle</label
+                  >
+                  <div class="control">
+                    <input
+                      class="input"
+                      type="text"
+                      v-model="profile.street"
+                      @focus="onFieldFocus('street')"
+                      @input="onFieldChange('street')"
+                      @click="onFieldClick('street')"
+                      @keydown="onKeyDown('street')"
+                    />
+                  </div>
+                </div>
+              
+
+
 
                 <div class="field">
                   <label :style="{ color: store.colors.accent }" class="label"
@@ -413,9 +432,9 @@
                 </div>
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent }" class="label"
-                    >Foto de Perfil</label
-                  >
+                  <label :style="{ color: store.colors.accent }" class="label">
+                    Foto de Perfil
+                  </label>
                   <div class="control">
                     <input
                       class="input"
@@ -425,17 +444,26 @@
                       @focus="onFieldFocus('profilePicture')"
                       @input="onFieldChange('profilePicture')"
                       @click="onFieldClick('profilePicture')"
-                    />
-                  </div>
-                  <div v-if="profile.profilePicture" class="preview">
-                    <img
-                      :src="profile.profilePicture"
-                      alt="Vista previa de la foto"
-                    />
-                  </div>
-                </div>
+                      />
+                    </div>
 
-                <div class="field is-grouped is-grouped-centered">
+                    <!-- Vista previa de la imagen original -->
+                    <div v-if="profile.profilePicture" class="preview">
+                      <label :style="{ color: store.colors.accent }">Imagen Original:</label>
+                      <img :src="profile.profilePicture" alt="Vista previa de la foto" />
+                    </div>
+
+                    <!-- Vistas previas de los tamaños redimensionados -->
+                    <div v-if="resizedImages.length" class="preview-sizes">
+      
+                      <div v-for="(image, index) in resizedImages" :key="index" class="preview-size">
+                        <img :src="image" :alt="'Vista previa tamaño ' + index" />
+                        <label :style="{ color: store.colors.accent }">{{ ['Grande', 'Mediano', 'Pequeño'][index] }}</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="field is-grouped is-grouped-centered">
                   <div class="control">
                     <button
                       :style="{
@@ -669,6 +697,16 @@ const actionTable = ref([
   {
     operator: "ubicacion",
     title: "Ubicacion",
+    K: 0,
+    P: 0,
+    H: 0,
+    M: 0,
+    B: 0,
+    Scrolling: 0,
+  },
+  {
+    operator: "street",
+    title: "Calle",
     K: 0,
     P: 0,
     H: 0,
@@ -967,18 +1005,36 @@ const validateNumber = (field) => {
 
 const validateDate = (field) => {
   const datePattern = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
-  if (!datePattern.test(profile.value[field])) {
+  const dateValue = profile.value[field];
+  
+  if (!datePattern.test(dateValue)) {
     message.value = "Formato de fecha inválido. Use DD/MM/YYYY";
     messageClass.value = "error-message";
-  } else {
-    message.value = "";
-    messageClass.value = "";
-    if (field === "date") {
-      profile.value.ageUser = calculateAge(profile.value[field]);
-    }
+    return;
+  }
+
+  // Convertir la fecha ingresada a un objeto Date
+  const [day, month, year] = dateValue.split('/').map(Number);
+  const enteredDate = new Date(year, month - 1, day);
+
+  // Obtener la fecha actual
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // Ignorar el tiempo para comparar solo las fechas
+
+  if (enteredDate > today) {
+    profile.value[field] = ""; // Borrar el contenido del campo
+    message.value = "La fecha no puede ser posterior a hoy.";
+    messageClass.value = "error-message";
+    return;
+  }
+
+  // Si la fecha es válida y no es posterior a hoy
+  message.value = "";
+  messageClass.value = "";
+  if (field === "date") {
+    profile.value.ageUser = calculateAge(dateValue);
   }
 };
-
 const calculateAge = (birthDate) => {
   const today = new Date();
   const birthDateParts = birthDate.split("/");
@@ -1002,22 +1058,45 @@ const calculateAge = (birthDate) => {
 
 const handleFileUpload = (event) => {
   const file = event.target.files[0];
-  const validExtensions = ["image/jpeg", "image/png", "image/jpg"];
+  if (!file) return;
 
-  if (file && validExtensions.includes(file.type)) {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      profile.value.profilePicture = e.target.result;
+  const reader = new FileReader();
+
+  reader.onload = (e) => {
+    const img = new Image();
+    img.src = e.target.result;
+
+    img.onload = () => {
+      // Guardar la imagen original
+      profile.profilePicture = e.target.result;
+
+      // Generar y guardar las versiones redimensionadas
+      generateResizedImages(img, [512, 256, 64]); // Tamaños grande, mediano, pequeño
     };
-    reader.readAsDataURL(file);
-    message.value = "";
-    messageClass.value = "";
-  } else {
-    message.value =
-      "Formato de archivo no válido. Solo se permiten archivos .jpg, .jpeg, y .png.";
-    messageClass.value = "error-message";
-  }
+  };
+
+  reader.readAsDataURL(file);
 };
+
+// Método auxiliar para redimensionar imágenes
+const generateResizedImages = (image, sizes) => {
+  resizedImages.value = sizes.map((size) => {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = size;
+    canvas.height = (image.height / image.width) * size;
+
+    ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+    return canvas.toDataURL('image/png'); // Base64 de la imagen redimensionada
+  });
+};
+
+// Data del componente
+
+const resizedImages = ref([]); // Imágenes redimensionadas
+
 
 const reverseGeocode = async (lat, lng) => {
   try {
