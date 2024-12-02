@@ -17,13 +17,6 @@ export const useValoresStore = defineStore('example', () => {
     paragraph: 16,
   });
 
-  const fonts = ref({
-    title: 'Arial, sans-serif',
-    paragraph: 'Georgia, serif',
-  });
-
-
-
   const getConfiguration = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -38,9 +31,8 @@ export const useValoresStore = defineStore('example', () => {
       const { primary_color, secondary, accent, button, titleSize, subtitleSize, paragraphSize, titleFontPath, paragraphFontPath } = response.data;
       colors.value = { primary: primary_color, secondary, accent, button };
       fontSizes.value = { title: titleSize, subtitle: subtitleSize, paragraph: paragraphSize };
-      fonts.value = { title: titleFontPath, paragraph: paragraphFontPath };
 
-      console.log('Configuración obtenida:', { colors: colors.value, fontSizes: fontSizes.value, fonts: fonts.value });
+      console.log('Configuración obtenida:', { colors: colors.value, fontSizes: fontSizes.value});
     } catch (error) {
       console.error('Error al obtener los colores:', error);
     }
@@ -71,8 +63,6 @@ export const useValoresStore = defineStore('example', () => {
         titleSize: fontSizes.value.title,
         subtitleSize: fontSizes.value.subtitle,
         paragraphSize: fontSizes.value.paragraph,
-        titleFontPath: fonts.value.title,
-        paragraphFontPath: fonts.value.paragraph,
       };
 
       const response = await axios.put('http://localhost:8080/api/Colores/1', colores, {
@@ -129,7 +119,6 @@ export const useValoresStore = defineStore('example', () => {
   return {
     colors,
     fontSizes,
-    fonts,
     setColor,
     setFontSize,
     setFontFamily,

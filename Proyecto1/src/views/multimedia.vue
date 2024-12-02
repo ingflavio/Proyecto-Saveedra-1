@@ -8,7 +8,9 @@
         }"
         class="galeriaInput"
       >
-        <label for="fileType">Tipo de Acción:</label>
+        <label :style="{ fontFamily: fontFamily.paragraph }" for="fileType"
+          >Tipo de Acción:</label
+        >
         <select v-model="fileType">
           <option value="image">Imagen</option>
           <option value="audio">Audio</option>
@@ -40,7 +42,12 @@
           placeholder="Subtítulos opcionales"
         />
 
-        <p v-if="fileType !== 'privacy'">Nombres de archivos subidos:</p>
+        <p
+          :style="{ fontFamily: fontFamily.paragraph }"
+          v-if="fileType !== 'privacy'"
+        >
+          Nombres de archivos subidos:
+        </p>
         <ul>
           <li v-for="file in fileNames" :key="file">{{ file }}</li>
         </ul>
@@ -52,6 +59,7 @@
           :style="{
             backgroundColor: store.colors.primary,
             color: store.colors.accent,
+            fontFamily: fontFamily.title,
           }"
         >
           Guardar
@@ -66,7 +74,7 @@
         }"
         class="galeriaPrevia"
       >
-        <h3>Vista Previa</h3>
+        <h3 :style="{ fontFamily: fontFamily.paragraph }">Vista Previa</h3>
         <div v-if="fileType === 'image'">
           <img
             v-for="url in previewUrls"
@@ -118,13 +126,18 @@
 </template>
 
 <script setup>
-import { computed} from "vue";
+import { computed } from "vue";
 import QuillEditor from "../components/wysiwygeditor.vue";
-import { useGaleria } from '../../Backend/yop/src/import/useGaleria.js';
-import { useValoresStore } from '@/store/useValoresStore';
+import { useGaleria } from "../../Backend/yop/src/import/useGaleria.js";
+import { useValoresStore } from "@/store/useValoresStore";
+import { useFontFamilyStore } from "@/store/FontFamilyStore";
 
 const store = useValoresStore();
+const fontFamilyStore = useFontFamilyStore();
+
 const colors = computed(() => store.colors);
+const fontFamily = computed(() => fontFamilyStore.fonts);
+
 const {
   policyContent,
   updatePolicyContent,
@@ -142,11 +155,14 @@ const {
 
 async function enviarDatos() {
   try {
-    const response = await axios.post("http://localhost:8080/api/RegisterMedia", {
-      fileType: fileType.value,
-      files: previewUrls.value,
-      subtitle: fileType.value === "video" ? subtitleUrl.value : null,
-    });
+    const response = await axios.post(
+      "http://localhost:8080/api/RegisterMedia",
+      {
+        fileType: fileType.value,
+        files: previewUrls.value,
+        subtitle: fileType.value === "video" ? subtitleUrl.value : null,
+      }
+    );
 
     // Mensaje de éxito
     message.value = response.data.message || "Datos enviados correctamente";
@@ -164,7 +180,6 @@ async function enviarDatos() {
   }
 }
 </script>
-
 
 <style>
 div.box {

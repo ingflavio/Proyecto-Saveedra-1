@@ -1,15 +1,14 @@
 <template>
-    <div class="box" :style="{ backgroundColor: 'white' }">
-      <h2
-        class="subtitle"
-        :style="{ color: colors.accent, fontSize: fontSizes.subtitle + 'px' }"
-      >
-        Configuración de Colores y Tipografía
-      </h2>
-      <div ref="editorContainer" class="quill-editor"></div>
-    </div>
-    <div>
-    </div>
+  <div class="box" :style="{ backgroundColor: 'white' }">
+    <h2
+      class="subtitle"
+      :style="{ color: colors.accent, fontSize: fontSizes.subtitle + 'px' }"
+    >
+      Editar Politicas de Privacidad
+    </h2>
+    <div ref="editorContainer" class="quill-editor"></div>
+  </div>
+  <div></div>
 </template>
 
 <script setup>

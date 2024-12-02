@@ -1,5 +1,5 @@
 <template>
-  <div class="containerContent is-relative">
+  <div class="containerContent banner is-relative">
     <section class="section profile-section">
       <div class="container">
         <div class="columns is-centered">
@@ -12,6 +12,7 @@
                 :style="{
                   color: store.colors.accent,
                   fontSize: store.fontSizes.title + 'px',
+                  fontFamily: fontFamily.title,
                 }"
                 class="title has-text-centered"
               >
@@ -19,7 +20,12 @@
               </h1>
               <form @submit.prevent="updateProfile">
                 <div class="field">
-                  <label :style="{ color: store.colors.accent }" class="label"
+                  <label
+                    :style="{
+                      color: store.colors.accent,
+                      fontFamily: fontFamily.paragraph,
+                    }"
+                    class="label"
                     >Nombre de Usuario</label
                   >
                   <div class="control">
@@ -36,7 +42,12 @@
                 </div>
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent }" class="label"
+                  <label
+                    :style="{
+                      color: store.colors.accent,
+                      fontFamily: fontFamily.paragraph,
+                    }"
+                    class="label"
                     >Correo Electrónico</label
                   >
                   <div class="control">
@@ -53,32 +64,47 @@
                 </div>
 
                 <div class="field">
-                <label :style="{ color: store.colors.accent }" class="label">Género</label>
-                <div class="control controlgender">
-                  <label class="radio">
-                    <input
-                      type="radio"
-                      v-model="profile.gender"
-                      value="M"
-                      @click="onFieldClick('gender')"
-                    />
-                    <label :style="{ color: store.colors.accent }"> Masculino</label>
-                  </label>
-                  <label class="radio ml-5">
-                    <input
-                      type="radio"
-                      v-model="profile.gender"
-                      value="F"
-                      @click="onFieldClick('gender')"
-                    />
-                    <label :style="{ color: store.colors.accent }"> Femenino</label>
-                  </label>
+                  <label
+                    :style="{
+                      color: store.colors.accent,
+                      fontFamily: fontFamily.paragraph,
+                    }"
+                    class="label"
+                    >Género</label
+                  >
+                  <div class="control controlgender">
+                    <label class="radio">
+                      <input
+                        type="radio"
+                        v-model="profile.gender"
+                        value="M"
+                        @click="onFieldClick('gender')"
+                      />
+                      <label :style="{ color: store.colors.accent }">
+                        Masculino</label
+                      >
+                    </label>
+                    <label class="radio ml-5">
+                      <input
+                        type="radio"
+                        v-model="profile.gender"
+                        value="F"
+                        @click="onFieldClick('gender')"
+                      />
+                      <label :style="{ color: store.colors.accent }">
+                        Femenino</label
+                      >
+                    </label>
+                  </div>
                 </div>
-              </div>
-
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent }" class="label"
+                  <label
+                    :style="{
+                      color: store.colors.accent,
+                      fontFamily: fontFamily.paragraph,
+                    }"
+                    class="label"
                     >Teléfono Celular</label
                   >
                   <div class="control is-flex">
@@ -110,7 +136,12 @@
                 </div>
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent }" class="label"
+                  <label
+                    :style="{
+                      color: store.colors.accent,
+                      fontFamily: fontFamily.paragraph,
+                    }"
+                    class="label"
                     >Teléfono Fijo</label
                   >
                   <div class="control is-flex">
@@ -155,7 +186,12 @@
                 </div>
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent }" class="label"
+                  <label
+                    :style="{
+                      color: store.colors.accent,
+                      fontFamily: fontFamily.paragraph,
+                    }"
+                    class="label"
                     >Nombre</label
                   >
                   <div class="control">
@@ -172,7 +208,12 @@
                 </div>
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent }" class="label"
+                  <label
+                    :style="{
+                      color: store.colors.accent,
+                      fontFamily: fontFamily.paragraph,
+                    }"
+                    class="label"
                     >Apellido</label
                   >
                   <div class="control">
@@ -189,7 +230,7 @@
                 </div>
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent }" class="label"
+                  <label :style="{ color: store.colors.accent, fontFamily: fontFamily.paragraph }" class="label"
                     >Número De Cédula</label
                   >
                   <div class="control">
@@ -206,7 +247,7 @@
                 </div>
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent }" class="label"
+                  <label :style="{ color: store.colors.accent, fontFamily: fontFamily.paragraph }" class="label"
                     >Ubicación</label
                   >
                   <div class="control">
@@ -222,7 +263,7 @@
                 </div>
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent }" class="label"
+                  <label :style="{ color: store.colors.accent, fontFamily: fontFamily.paragraph }" class="label"
                     >Ciudad</label
                   >
                   <div class="control">
@@ -239,7 +280,7 @@
                 </div>
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent }" class="label"
+                  <label :style="{ color: store.colors.accent, fontFamily: fontFamily.paragraph }" class="label"
                     >Calle</label
                   >
                   <div class="control">
@@ -254,12 +295,9 @@
                     />
                   </div>
                 </div>
-              
-
-
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent }" class="label"
+                  <label :style="{ color: store.colors.accent, fontFamily: fontFamily.paragraph }" class="label"
                     >Estado</label
                   >
                   <div class="control">
@@ -276,7 +314,7 @@
                 </div>
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent }" class="label"
+                  <label :style="{ color: store.colors.accent, fontFamily: fontFamily.paragraph }" class="label"
                     >País</label
                   >
                   <div class="control">
@@ -293,7 +331,7 @@
                 </div>
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent }" class="label"
+                  <label :style="{ color: store.colors.accent, fontFamily: fontFamily.paragraph }" class="label"
                     >Código Postal</label
                   >
                   <div class="control">
@@ -310,7 +348,7 @@
                 </div>
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent }" class="label"
+                  <label :style="{ color: store.colors.accent, fontFamily: fontFamily.paragraph }" class="label"
                     >Latitud</label
                   >
                   <div class="control">
@@ -327,7 +365,7 @@
                 </div>
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent }" class="label"
+                  <label :style="{ color: store.colors.accent, fontFamily: fontFamily.paragraph }" class="label"
                     >Longitud</label
                   >
                   <div class="control">
@@ -344,7 +382,7 @@
                 </div>
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent }" class="label"
+                  <label :style="{ color: store.colors.accent, fontFamily: fontFamily.paragraph }" class="label"
                     >Offset</label
                   >
                   <div class="control">
@@ -361,7 +399,7 @@
                 </div>
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent }" class="label"
+                  <label :style="{ color: store.colors.accent, fontFamily: fontFamily.paragraph }" class="label"
                     >Descripción</label
                   >
                   <div class="control">
@@ -378,7 +416,7 @@
                 </div>
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent }" class="label"
+                  <label :style="{ color: store.colors.accent, fontFamily: fontFamily.paragraph }" class="label"
                     >Fecha de Nacimiento</label
                   >
                   <div class="control">
@@ -396,7 +434,7 @@
                 </div>
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent }" class="label"
+                  <label :style="{ color: store.colors.accent, fontFamily: fontFamily.paragraph }" class="label"
                     >Edad del Usuario</label
                   >
                   <div class="control">
@@ -414,7 +452,7 @@
                 </div>
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent }" class="label"
+                  <label :style="{ color: store.colors.accent, fontFamily: fontFamily.paragraph }" class="label"
                     >Fecha de Registro</label
                   >
                   <div class="control">
@@ -432,7 +470,7 @@
                 </div>
 
                 <div class="field">
-                  <label :style="{ color: store.colors.accent }" class="label">
+                  <label :style="{ color: store.colors.accent, fontFamily: fontFamily.paragraph }" class="label">
                     Foto de Perfil
                   </label>
                   <div class="control">
@@ -444,31 +482,42 @@
                       @focus="onFieldFocus('profilePicture')"
                       @input="onFieldChange('profilePicture')"
                       @click="onFieldClick('profilePicture')"
-                      />
-                    </div>
-
-                    <!-- Vista previa de la imagen original -->
-                    <div v-if="profile.profilePicture" class="preview">
-                      <label :style="{ color: store.colors.accent }">Imagen Original:</label>
-                      <img :src="profile.profilePicture" alt="Vista previa de la foto" />
-                    </div>
-
-                    <!-- Vistas previas de los tamaños redimensionados -->
-                    <div v-if="resizedImages.length" class="preview-sizes">
-      
-                      <div v-for="(image, index) in resizedImages" :key="index" class="preview-size">
-                        <img :src="image" :alt="'Vista previa tamaño ' + index" />
-                        <label :style="{ color: store.colors.accent }">{{ ['Grande', 'Mediano', 'Pequeño'][index] }}</label>
-                      </div>
-                    </div>
+                    />
                   </div>
 
-                  <div class="field is-grouped is-grouped-centered">
+                  <!-- Vista previa de la imagen original -->
+                  <div v-if="profile.profilePicture" class="preview">
+                    <label :style="{ color: store.colors.accent }"
+                      >Imagen Original:</label
+                    >
+                    <img
+                      :src="profile.profilePicture"
+                      alt="Vista previa de la foto"
+                    />
+                  </div>
+
+                  <!-- Vistas previas de los tamaños redimensionados -->
+                  <div v-if="resizedImages.length" class="preview-sizes">
+                    <div
+                      v-for="(image, index) in resizedImages"
+                      :key="index"
+                      class="preview-size"
+                    >
+                      <img :src="image" :alt="'Vista previa tamaño ' + index" />
+                      <label :style="{ color: store.colors.accent }">{{
+                        ["Grande", "Mediano", "Pequeño"][index]
+                      }}</label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="field is-grouped is-grouped-centered">
                   <div class="control">
                     <button
                       :style="{
                         backgroundColor: store.colors.button,
                         color: store.colors.accent,
+                        fontFamily: fontFamily.title
                       }"
                       class="button is-link"
                       type="submit"
@@ -490,12 +539,16 @@
                 :style="{
                   color: store.colors.accent,
                   fontSize: store.fontSizes.title + 'px',
+                  fontFamily: fontFamily.title,
                 }"
                 class="title has-text-centered"
               >
                 Registro de Acciones
               </h1>
-              <table class="table is-fullwidth">
+              <table
+                :style="{ backgroundColor: store.colors.secondary }"
+                class="table is-fullwidth"
+              >
                 <thead>
                   <tr>
                     <th :style="{ color: store.colors.accent }">Título</th>
@@ -542,11 +595,16 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from "vue";
+import { ref, onMounted, computed, onBeforeUnmount } from "vue";
 import axios from "axios";
 import L from "leaflet";
-import { useValoresStore } from "../store/useValoresStore.js"; // Ajusta la ruta según sea necesario
+import { useValoresStore } from "../store/useValoresStore.js";
+import { useFontFamilyStore } from "@/store/FontFamilyStore.js";
+
 const store = useValoresStore();
+const FontFamilyStore = useFontFamilyStore();
+
+const fontFamily = computed(() => FontFamilyStore.fonts);
 
 const lastScrollTime = ref(0); // Variable para el tiempo del último scroll
 const hasSwitchedToKeyboard = ref({});
@@ -1006,7 +1064,7 @@ const validateNumber = (field) => {
 const validateDate = (field) => {
   const datePattern = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
   const dateValue = profile.value[field];
-  
+
   if (!datePattern.test(dateValue)) {
     message.value = "Formato de fecha inválido. Use DD/MM/YYYY";
     messageClass.value = "error-message";
@@ -1014,7 +1072,7 @@ const validateDate = (field) => {
   }
 
   // Convertir la fecha ingresada a un objeto Date
-  const [day, month, year] = dateValue.split('/').map(Number);
+  const [day, month, year] = dateValue.split("/").map(Number);
   const enteredDate = new Date(year, month - 1, day);
 
   // Obtener la fecha actual
@@ -1081,22 +1139,21 @@ const handleFileUpload = (event) => {
 // Método auxiliar para redimensionar imágenes
 const generateResizedImages = (image, sizes) => {
   resizedImages.value = sizes.map((size) => {
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
 
     canvas.width = size;
     canvas.height = (image.height / image.width) * size;
 
     ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
 
-    return canvas.toDataURL('image/png'); // Base64 de la imagen redimensionada
+    return canvas.toDataURL("image/png"); // Base64 de la imagen redimensionada
   });
 };
 
 // Data del componente
 
 const resizedImages = ref([]); // Imágenes redimensionadas
-
 
 const reverseGeocode = async (lat, lng) => {
   try {

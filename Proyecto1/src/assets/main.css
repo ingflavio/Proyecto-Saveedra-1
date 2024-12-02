@@ -181,3 +181,8 @@ footer.footer {
 pdf-container {
   margin-top: 10px;
 }
+
+section.color-section {
+  display: flex;
+  justify-content: space-around;
+}

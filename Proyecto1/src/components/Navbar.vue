@@ -1,7 +1,13 @@
 <template>
-  <nav :style="{ backgroundColor: store.colors.primary }" class="navbar is-transparent">
+  <nav
+    :style="{ backgroundColor: store.colors.primary }"
+    class="navbar is-transparent"
+  >
     <div class="navbar-brand">
-      <div class="navbar-burger js-burger" data-target="navbarExampleTransparentExample">
+      <div
+        class="navbar-burger js-burger"
+        data-target="navbarExampleTransparentExample"
+      >
         <span></span>
         <span></span>
         <span></span>
@@ -10,38 +16,94 @@
 
     <div id="navbarExampleTransparentExample" class="navbar-menu">
       <div class="navbar-start">
-        <router-link class="navbar-item" 
-                     :style="{ color: store.colors.accent, fontSize: store.fontSizes.paragraph + 'px' }" 
-                     to="/"> Inicio </router-link>
-        <router-link class="navbar-item" 
-                     :style="{ color: store.colors.accent, fontSize: store.fontSizes.paragraph + 'px' }" 
-                     to="/multimedia"> Multimedia </router-link>
-        <router-link class="navbar-item" 
-                     :style="{ color: store.colors.accent, fontSize: store.fontSizes.paragraph + 'px' }" 
-                     to="/colores"> Colores </router-link>
+        <router-link
+          class="navbar-item"
+          :style="{
+            color: store.colors.accent,
+            fontSize: store.fontSizes.paragraph + 'px',
+            fontFamily: fontFamily.paragraph,
+          }"
+          to="/"
+        >
+          Inicio
+        </router-link>
+        <router-link
+          class="navbar-item"
+          :style="{
+            color: store.colors.accent,
+            fontSize: store.fontSizes.paragraph + 'px',
+            fontFamily: fontFamily.paragraph,
+          }"
+          to="/multimedia"
+        >
+          Multimedia
+        </router-link>
+        <router-link
+          class="navbar-item"
+          :style="{
+            color: store.colors.accent,
+            fontSize: store.fontSizes.paragraph + 'px',
+            fontFamily: fontFamily.paragraph,
+          }"
+          to="/colores"
+        >
+          Colores
+        </router-link>
       </div>
       <div class="navbar-end">
         <div class="navbar-item">
           <div class="field is-grouped">
             <p class="control" v-if="!isAuthenticated">
-              <router-link class="button buttonNav" 
-                           :style="{ backgroundColor: store.colors.button, color: store.colors.accent, fontSize: store.fontSizes.paragraph + 'px' }" 
-                           to="/Login">
-                <span :style="{ fontSize: store.fontSizes.paragraph + 'px' }">Iniciar Sesión</span>
+              <router-link
+                class="button buttonNav"
+                :style="{
+                  backgroundColor: store.colors.button,
+                  color: store.colors.accent,
+                  fontSize: store.fontSizes.paragraph + 'px',
+                }"
+                to="/Login"
+              >
+                <span
+                  :style="{
+                    fontSize: store.fontSizes.paragraph + 'px',
+                    fontFamily: fontFamily.title,
+                  }"
+                  >Iniciar Sesión</span
+                >
               </router-link>
             </p>
             <p class="control" v-if="!isAuthenticated">
-              <router-link class="button buttonNav" 
-                           :style="{ backgroundColor: store.colors.button, color: store.colors.accent, fontSize: store.fontSizes.paragraph + 'px' }" 
-                           to="/register">
-                <span :style="{ fontSize: store.fontSizes.paragraph + 'px' }">Registrarte</span>
+              <router-link
+                class="button buttonNav"
+                :style="{
+                  backgroundColor: store.colors.button,
+                  color: store.colors.accent,
+                  fontSize: store.fontSizes.paragraph + 'px',
+                }"
+                to="/register"
+              >
+                <span
+                  :style="{
+                    fontSize: store.fontSizes.paragraph + 'px',
+                    fontFamily: fontFamily.title,
+                  }"
+                  >Registrarte</span
+                >
               </router-link>
             </p>
             <p class="control" v-if="isAuthenticated">
-              <router-link class="button buttonNav" 
-                           :style="{ backgroundColor: store.colors.button, color: store.colors.accent, fontSize: store.fontSizes.paragraph + 'px' }" 
-                           to="/perfil">
-                <span :style="{ fontSize: store.fontSizes.paragraph + 'px' }">Perfil</span>
+              <router-link
+                class="button buttonNav"
+                :style="{
+                  backgroundColor: store.colors.button,
+                  color: store.colors.accent,
+                  fontSize: store.fontSizes.paragraph + 'px',
+                }"
+                to="/perfil"
+              >
+                <span :style="{ fontSize: store.fontSizes.paragraph + 'px' }"
+                  >Perfil</span
+                >
               </router-link>
             </p>
           </div>
@@ -53,11 +115,11 @@
 
 <style scoped>
 .navbar-item {
-  color: inherit !important; 
+  color: inherit !important;
 }
 
 .buttonNav {
-  transition: background-color 0.3s; 
+  transition: background-color 0.3s;
 }
 
 @media only screen and (max-width: 1023px) {
@@ -68,11 +130,15 @@
 </style>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from "vue";
 import { useValoresStore } from "../store/useValoresStore.js";
+import { useFontFamilyStore } from "@/store/FontFamilyStore.js";
 
 const store = useValoresStore();
+const FontFamilyStore = useFontFamilyStore();
+
 const isAuthenticated = ref(false);
+const fontFamily = computed(() => FontFamilyStore.fonts);
 
 onMounted(() => {
   const token = localStorage.getItem("token");
