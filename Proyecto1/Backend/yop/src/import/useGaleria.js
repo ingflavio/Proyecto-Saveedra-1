@@ -1,5 +1,5 @@
 import { ref, computed, watch } from "vue";
-import { usePolicyStore } from '@/store/usePolicyStore.js';
+import { usePolicyStore } from "@/store/usePolicyStore.js";
 
 export function useGaleria() {
   const policyStore = usePolicyStore();
@@ -11,7 +11,6 @@ export function useGaleria() {
   const previewUrls = ref([]);
   const videoUrl = ref(null);
   const subtitleUrl = ref(null);
-
 
   const acceptedTypes = computed(() => {
     if (fileType.value === "image") return "image/*";
@@ -87,15 +86,33 @@ export function useGaleria() {
     }
   }
 
+  function removeImage(url) {
+    previewUrls.value = previewUrls.value.filter(
+      (previewUrl) => previewUrl !== url
+    );
+
+    const storedFiles = JSON.parse(localStorage.getItem("uploadedFiles")) || {};
+    storedFiles[fileType.value] = storedFiles[fileType.value]?.filter(
+      (storedUrl) => storedUrl !== url
+    );
+    localStorage.setItem("uploadedFiles", JSON.stringify(storedFiles));
+  }
+
   function saveToLocalStorage() {
+    // Verifica que haya al menos 4 imágenes en previewUrls
+    if (fileType.value === "image" && previewUrls.value.length < 4) {
+      alert("Debes tener al menos 4 imágenes en la vista previa para guardar.");
+      return;
+    }
+  
     if (!files.value.length && !videoUrl.value) {
       alert("No hay archivos para guardar.");
       return;
     }
-
+  
     const storedFiles = JSON.parse(localStorage.getItem("uploadedFiles")) || {};
     const existingFiles = storedFiles[fileType.value] || [];
-
+  
     if (fileType.value === "video" && videoUrl.value) {
       storedFiles.video = [videoUrl.value];
     } else if (fileType.value === "pdf") {
@@ -106,12 +123,12 @@ export function useGaleria() {
       );
       storedFiles[fileType.value] = [...existingFiles, ...newFiles];
     }
-
+  
     localStorage.setItem("uploadedFiles", JSON.stringify(storedFiles));
     if (fileType.value === "video" && subtitleUrl.value) {
       localStorage.setItem("subtitle", subtitleUrl.value);
     }
-
+  
     alert("Archivos guardados exitosamente.");
     updatePreview();
   }
@@ -137,6 +154,7 @@ export function useGaleria() {
     fileNames,
     previewUrls,
     videoUrl,
+    removeImage,
     subtitleUrl,
     acceptedTypes,
     handleFiles,

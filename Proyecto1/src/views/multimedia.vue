@@ -73,17 +73,31 @@
           color: colors.accent,
         }"
         class="galeriaPrevia"
+        :class="{
+          'flex-row': !previewUrls.length,
+          'flex-col': previewUrls.length,
+        }"
       >
-        <h3 :style="{ fontFamily: fontFamily.paragraph }">Vista Previa</h3>
-        <div v-if="fileType === 'image'">
-          <img
+        <h3 :style="{ fontFamily: fontFamily.paragraph, textAlign: center }">
+          Vista Previa
+        </h3>
+        <div class="image-container" v-if="fileType == 'image'">
+          <div
             v-for="url in previewUrls"
-            :src="url"
             :key="url"
-            alt="preview"
-            width="100"
-          />
+            class="image-badges"
+            style="position: relative; display: inline-block; margin: 5px"
+          >
+            <img :src="url" alt="preview" @load="getImageDimensions(url)" />
+            <button @click="removeImage(url)" class="close-btn">X</button>
+
+            <div v-if="imageDimensions[url]" class="image-dimensions">
+              {{ imageDimensions[url].width }} x
+              {{ imageDimensions[url].height }}
+            </div>
+          </div>
         </div>
+
         <div v-if="fileType === 'audio'">
           <audio
             v-for="url in previewUrls"
@@ -126,7 +140,7 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import QuillEditor from "../components/wysiwygeditor.vue";
 import { useGaleria } from "../../Backend/yop/src/import/useGaleria.js";
 import { useValoresStore } from "@/store/useValoresStore";
@@ -146,6 +160,7 @@ const {
   fileNames,
   previewUrls,
   videoUrl,
+  removeImage,
   subtitleUrl,
   acceptedTypes,
   handleFiles,
@@ -178,6 +193,19 @@ async function enviarDatos() {
     messageClass.value = "error-message";
     console.error(error);
   }
+}
+
+const imageDimensions = ref({});
+
+function getImageDimensions(url) {
+  const img = new Image();
+  img.src = url;
+  img.onload = () => {
+    imageDimensions.value[url] = {
+      width: img.naturalWidth,
+      height: img.naturalHeight,
+    };
+  };
 }
 </script>
 
