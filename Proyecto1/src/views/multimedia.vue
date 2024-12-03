@@ -48,7 +48,7 @@
         >
           Nombres de archivos subidos:
         </p>
-        <ul>
+        <ul v-if="fileType !== 'privacy'">
           <li v-for="file in fileNames" :key="file">{{ file }}</li>
         </ul>
 
