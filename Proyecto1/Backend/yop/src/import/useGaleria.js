@@ -5,7 +5,7 @@ export function useGaleria() {
   const policyStore = usePolicyStore();
   const policyContent = ref(policyStore.privacyPolicy);
 
-  const fileType = ref("image");
+  const fileType = ref("privacy");
   const files = ref([]);
   const fileNames = ref([]);
   const previewUrls = ref([]);
